@@ -1,0 +1,48 @@
+{
+    "name": "experium",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.0",
+        "@mediapipe/tasks-vision": "^0.10.20",
+        "@mui/material": "^6.3.1",
+        "@react-three/drei": "^9.120.5",
+        "@react-three/fiber": "^8.17.10",
+        "gsap": "^3.12.5",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "react-intersection-observer": "^9.14.1",
+        "react-router-dom": "^7.1.2",
+        "react-scripts": "5.0.1",
+        "react-scroll": "^1.9.0",
+        "swiper": "^11.2.1",
+        "swiper-react": "^1.0.0",
+        "three": "^0.172.0",
+        "web-vitals": "^4.2.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}
