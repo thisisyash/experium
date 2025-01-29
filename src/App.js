@@ -7,6 +7,7 @@ import AllEvents from "./Pages/AllEvents"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import EventDetailPage from "./Pages/EventDetail"
 import MusicConcerts from "./Pages/MusicConcerts"
+
 // Main App Component
 function App() {
   const videoData = [
@@ -87,22 +88,16 @@ function App() {
      
       
 
-      <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage scrollIndex={scrollIndex} />}>
-       
-         </Route>
-      </Routes>
-      <Routes>
-      <Route path="/events" element={<AllEvents  />} />
-      </Routes>
-      <Routes>
-      <Route path="/events/music-concert" element={<MusicConcerts  />} />
-      </Routes>
-      <Routes>
-      <Route path="/events/event-details" element={<EventDetailPage  />} />
-      </Routes>
-    </BrowserRouter>
+     <BrowserRouter>
+  <Routes>
+  <Route path="/" element={<HomePage />} />
+    <Route path="/home/:id" element={<HomePage />} />
+    
+    <Route path="/events" element={<AllEvents />} />
+    <Route path="/events/music-concert" element={<MusicConcerts />} />
+    <Route path="/events/event-details" element={<EventDetailPage />} />
+  </Routes>
+</BrowserRouter>
     </>
     
   )

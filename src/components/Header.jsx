@@ -4,7 +4,7 @@ import Logo from "../assets/experium-logo.png";
 
 const Header = ({ pageId }) => {
   const menuItems = [
-    { title: "Home", path: "" },
+    { title: "Home", path: "home/MiracleFlowerGarden" },
     { title: "Events", path: "events" },
     { title: "Bulk Bookings", path: "Booking" },
   ];
@@ -12,7 +12,7 @@ const Header = ({ pageId }) => {
   return (
     <Box
       sx={{
-        height: "13vh",
+        height: "15vh",
         width: "100%",
         backgroundColor: "white",
         display: "flex",

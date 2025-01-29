@@ -1,12 +1,13 @@
 import React, { useState, useEffect,useRef } from "react";
 import { Box, Typography } from "@mui/material";
+import Facility1 from "../assets/facility_1.jpg"
 
-
+import Facility2 from "../assets/facility_2.png"
 // Data for frames
 const frames = [
-  { imageUrl: "https://picsum.photos/200", size: "250", position: [5, 5] },
-  { imageUrl: "https://picsum.photos/200", size: "250", position: [22, 65] },
-  { imageUrl: "https://picsum.photos/200", size: "250", position: [73, 25] },
+  { imageUrl: Facility1, size: "250", position: [5, 5] },
+  { imageUrl: Facility2, size: "250", position: [22, 65] },
+  { imageUrl: Facility1, size: "250", position: [73, 25] },
   { imageUrl: "https://picsum.photos/200", size: "150", position: [33, 18] },
   { imageUrl: "https://picsum.photos/200", size: "150", position: [53, 13] },
 ];
@@ -154,12 +155,12 @@ function Facilities({scrollY}) {
   const sectionRef = useRef(null);
   const handleScroll = (event) => {
     const isScrollingDown = event.deltaY > 0;
-    let newIndex = scrollIndex*3;
+    let newIndex = scrollIndex/3;
   
     if (isScrollingDown) {
       newIndex = Math.min(scrollIndex + 35, 800); // Adjust max value
     } else {
-      newIndex = Math.max(scrollIndex - 50, 0); // Prevent going below 0
+      newIndex = Math.max(scrollIndex - 10, 0); // Prevent going below 0
     }
   
     setScrollIndex(newIndex);
