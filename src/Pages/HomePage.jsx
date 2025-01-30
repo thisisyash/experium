@@ -5,6 +5,7 @@ import Facilities from "../components/Facilities";
 import Header from "../components/Header";
 import gsap from "gsap";
 import { useParams } from "react-router-dom";
+import CardComponent from "../components/HomeCard";
 
 function HomePage() {
   const [scrollIndex, setScrollIndex] = useState(0);
@@ -18,10 +19,10 @@ function HomePage() {
     { title: "Miracle Flower Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'MiracleFlowerGarden' },
     { title: "Japanese Garden", videoUrl: "https://www.w3schools.com/html/movie.mp4", id: 'JapaneseGarden' },
     { title: "Rock Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'RockGarden' },
-    { title: "Cactus Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'CactusGarden' },
-    { title: "Palm Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'PalmGardens' },
-    { title: "Amphitheatre", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'Amphitheatre' },
-    { title: "Sculpture's", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'Sculpture' },
+    // { title: "Cactus Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'CactusGarden' },
+    // { title: "Palm Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'PalmGardens' },
+    // { title: "Amphitheatre", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'Amphitheatre' },
+    // { title: "Sculpture's", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'Sculpture' },
   ];
 
   // Find the index based on the 'id' parameter
@@ -92,6 +93,7 @@ console.log(sectionRefs,'sec')
           />
         ))}
       </div>
+      <CardComponent/>
       <Facilities />
     </Box>
   );

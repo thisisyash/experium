@@ -32,7 +32,7 @@ const Title = ({ scrollY, title }) => {
       <Text
         ref={mesh}
         fontSize={1.5} // Adjust font size
-        color="brown" // Text color
+        color="#C0029D" // Text color
         position={[0, -1, 0]} // Position of the text
         anchorY="middle"
         anchorX="center"
@@ -116,33 +116,44 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
     const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current, // Element to observe
-        start: "bottom bottom", // Trigger animation when element enters viewport
-        end: "center center", // End trigger point
-        toggleActions: "play none none reverse" // Play on enter, reverse on leave
+        start: "top bottom", // Trigger animation when element enters viewport
+        end: "bottom top",
+        scrub: 1,  // End trigger point
+        // toggleActions: "play none none reverse" // Play on enter, reverse on leave
       },
     });
 
     // Video Animation (Appear and Disappear)
     timeline
-      .fromTo(
-        videoRef.current,
-        {
-          opacity: index==0?1:1,
-          duration:1,
-          scale:0.7, // Start slightly smaller for zoom-in effect
-      //  clipPath: "polygon(0% 0%, 100% 5%, 100% 100%, 0% 100%)"
-        },
-        {
-          opacity: 1,
-          scale: 1, // Reset scale to normal
+    .fromTo(
+      containerRef.current,
+      { 
+        opacity: 0.5,
+        scale: 0.3,
+        skewY: 3,
+        y:100 // Skew while entering
+      },
+      { 
+        opacity: 1,
+        scale: 1,
+        skewY: 0,  // No skew in center
+        duration: 2,
         
-          duration:1, // Duration of the animation
-          ease: "power3.out", // Smooth easing for appearing
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 89%, 0% 100%);"
-        }
-      )
-     
-    
+      }
+    )
+    .fromTo(containerRef.current, {
+      opacity: 1,
+      scale: 1,  // Increase size while moving up
+      skewY: 0,    // Skew in opposite direction
+      duration: 2
+    },
+ {
+  opacity: 0.9,
+    scale: 1.2,  // Increase size while moving up
+    skewY: -4,    // Skew in opposite direction
+    duration: 1
+  });
+
 
     if (videoRef.current) observer.observe(videoRef.current);
 
@@ -216,7 +227,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       
         overflow: "hidden",
         width: "80vw",
-        height: "90vh",
+        height: "85vh",
       
         transformOrigin: "bottom center",// Inverted trapezoid
       }}
@@ -235,16 +246,18 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
             Your browser does not support the video tag.
           </video> */}
           <VideoPage videoUrl={videoUrl}/>
-          <Box sx={{textAlign:'center',textDecoration:'underline'}}>
-           
-  <Button  sx={{marginTop:'5px',color:'orange'}} >Know More..</Button>
-  </Box>
+   
       
     </Box>
     
     
         }
+          <Box sx={{textAlign:'center',textDecoration:'underline'}}>
+           
+           <Button  sx={{margin:'5px',color:'orange'}} >Know More..</Button>
+           </Box>
       </Box>
+    
       </Box>
     </>
   );
