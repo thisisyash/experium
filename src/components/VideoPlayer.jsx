@@ -8,8 +8,8 @@ import { VolumeOff, VolumeUp, PlayArrow, Pause, Audiotrack, MusicOff } from "@mu
 const VideoPage = ({ videoUrl }) => {
   const [scrollY, setScrollY] = useState(0);
   const [inViewport, setInViewport] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [volume, setVolume] = useState(1);
 
@@ -23,7 +23,7 @@ const VideoPage = ({ videoUrl }) => {
       setIsMuted(!isMuted);
     }
   };
-
+console.log(isPlaying)
   const handlePlayToggle = () => {
     const video = videoRef.current;
     if (video) {
@@ -33,6 +33,15 @@ const VideoPage = ({ videoUrl }) => {
         video.play();
       }
       setIsPlaying(!isPlaying);
+    }
+  };
+  const handlePlay = () => {
+    const video = videoRef.current;
+    if (video) {
+  
+      setIsPlaying(true);
+      video.muted=false
+      video.play();
     }
   };
 
@@ -75,7 +84,7 @@ objectFit: "cover",
 }}
 
 muted
- autoPlay
+//  autoPlay
 loop
 onTimeUpdate={handleTimeUpdate}
 >
@@ -86,9 +95,9 @@ Your browser does not support the video tag.
 
 
     {/* Unmute Icon */}
-    {isMuted && (
+    {!isPlaying && (
       <IconButton
-        onClick={handleMuteToggle}
+        onClick={handlePlay}
         sx={{
           position: "absolute",
           bottom: "10%",
@@ -106,12 +115,12 @@ Your browser does not support the video tag.
           zIndex: 10,
         }}
       >
-        <VolumeOff color="orange" sx={{fontSize:"3rem"}}/>
+        <PlayArrow color="orange" sx={{fontSize:"3rem"}}/>
       </IconButton>
     )}
 
     {/* Custom Controls */}
-    {!isMuted && (
+    {isPlaying && (
       <Box
         sx={{
           position: "absolute",
@@ -129,7 +138,7 @@ Your browser does not support the video tag.
         }}
       >
         <IconButton onClick={handlePlayToggle}>
-          {!isPlaying ?  <PlayArrow  sx={{ color: "orange", fontSize:'xx-large' }}/> : <Pause  sx={{ color: "orange", fontSize:'xx-large' }} />}
+          {isPlaying ?  <PlayArrow   sx={{ color: "orange", fontSize:'xx-large' }}/> : <Pause  sx={{ color: "orange", fontSize:'xx-large' }} />}
         </IconButton>
 
         <Slider
