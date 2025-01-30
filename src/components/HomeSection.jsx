@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
-import { Box, Fade, Grow, Slide } from "@mui/material";
+import { Box, Button, Fade, Grow, Slide } from "@mui/material";
 import Header from "../components/Header";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -115,31 +115,33 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
     );
     const timeline = gsap.timeline({
       scrollTrigger: {
-        trigger: videoRef.current, // Element to observe
+        trigger: containerRef.current, // Element to observe
         start: "bottom bottom", // Trigger animation when element enters viewport
-        end: "top top", // End trigger point
+        end: "center center", // End trigger point
         toggleActions: "play none none reverse" // Play on enter, reverse on leave
       },
     });
 
     // Video Animation (Appear and Disappear)
-    timeline.fromTo(
-      videoRef.current,
-      {
-        opacity: 0,
-        transformY: 0,
-        scale: 0.8,
-        // clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)", // Starts as a horizontal slice in the middle
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        transformY: 0,
-        // clipPath: "polygon(0% 50%, 100% 0%, 100% 100%, 0% 100%)", // Expands diagonally to reveal full video
-        duration: 1.5,
-        ease: "power3.out",
-      }
-    );
+    timeline
+      .fromTo(
+        videoRef.current,
+        {
+          opacity: index==0?1:1,
+          duration:1,
+          scale:0.7, // Start slightly smaller for zoom-in effect
+      //  clipPath: "polygon(0% 0%, 100% 5%, 100% 100%, 0% 100%)"
+        },
+        {
+          opacity: 1,
+          scale: 1, // Reset scale to normal
+        
+          duration:1, // Duration of the animation
+          ease: "power3.out", // Smooth easing for appearing
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 89%, 0% 100%);"
+        }
+      )
+     
     
 
     if (videoRef.current) observer.observe(videoRef.current);
@@ -213,8 +215,8 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       sx={{
       
         overflow: "hidden",
-        width: "90vw",
-        height: "80vh",
+        width: "80vw",
+        height: "90vh",
       
         transformOrigin: "bottom center",// Inverted trapezoid
       }}
@@ -233,6 +235,11 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
             Your browser does not support the video tag.
           </video> */}
           <VideoPage videoUrl={videoUrl}/>
+          <Box sx={{textAlign:'center',textDecoration:'underline'}}>
+           
+  <Button  sx={{marginTop:'5px',color:'orange'}} >Know More..</Button>
+  </Box>
+      
     </Box>
     
     

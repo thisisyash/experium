@@ -59,8 +59,6 @@ const VideoPage = ({ videoUrl }) => {
     <Box
     sx={{
       position: "relative",
-      width: "80vw",
-      height: "80vh",
       backgroundColor: "black",
       overflow: "hidden",
       borderRadius: "10px",
@@ -77,7 +75,7 @@ objectFit: "cover",
 }}
 
 muted
-//  autoPlay
+ autoPlay
 loop
 onTimeUpdate={handleTimeUpdate}
 >
@@ -96,19 +94,19 @@ Your browser does not support the video tag.
           bottom: "10%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          color: "violet",
+          color: "orange",
           backgroundColor: "black",
           borderRadius: "10%",
           opacity: 0.6,
           animation: 'ease-in-out',
           "&:hover": {
             backgroundColor: "white",
-            color: "violet",
+            color: "orange",
           },
           zIndex: 10,
         }}
       >
-        <VolumeOff color="violet" sx={{fontSize:"3rem"}}/>
+        <VolumeOff color="orange" sx={{fontSize:"3rem"}}/>
       </IconButton>
     )}
 
@@ -127,11 +125,11 @@ Your browser does not support the video tag.
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          color: "violet",
+          color: "orange",
         }}
       >
         <IconButton onClick={handlePlayToggle}>
-          {!isPlaying ?  <PlayArrow  sx={{ color: "violet", fontSize:'xx-large' }}/> : <Pause  sx={{ color: "violet", fontSize:'xx-large' }} />}
+          {!isPlaying ?  <PlayArrow  sx={{ color: "orange", fontSize:'xx-large' }}/> : <Pause  sx={{ color: "orange", fontSize:'xx-large' }} />}
         </IconButton>
 
         <Slider
@@ -142,7 +140,7 @@ Your browser does not support the video tag.
             if (videoRef.current) videoRef.current.currentTime = value;
           }}
           sx={{
-            color: "violet",
+            color: "orange",
             mx: 2,
           }}
         />
@@ -156,19 +154,16 @@ Your browser does not support the video tag.
           onChange={handleVolumeChange}
           sx={{
             width: "200px",
-            color: "violet",
+            color: "orange",
             
           }}
         />
 
-        <VolumeUp onClick={handleMuteToggle}  color="violet" style={{fontSize:'2rem',marginLeft:'15px'}} />
+        <VolumeUp onClick={handleMuteToggle}  color="orange" style={{fontSize:'2rem',marginLeft:'15px'}} />
       </Box>
     )}
   </Box>
-  <div style={{display:"flex", justifyContent:"center", alignItems:'center',width:'100%',flexDirection:'row'}}>
-  <Button  label="Know More.." size="large" variant="contained" fontSize="large" color="blue" sx={{marginTop:'20px',justifySelf:'center',marginRight:'20px'}}>Know More..</Button>
-  </div>
-      
+ 
    </>
   );
 };
