@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import EventDetailPage from "./Pages/EventDetail"
 import MusicConcerts from "./Pages/MusicConcerts"
 import Background3D from "./components/Background3d"
+import ViewGarden from "./Pages/ViewGarden"
 
 // Main App Component
 function App() {
@@ -93,8 +94,9 @@ function App() {
   <Routes>
   <Route path="/" element={<HomePage />} />
     <Route path="/home/:id" element={<HomePage />} />
-    
+    <Route path="/garden/:id" element={<ViewGarden />} />
     <Route path="/events" element={<AllEvents />} />
+    <Route path="/groupBookings" element={<AllEvents />} />
     <Route path="/events/music-concert" element={<MusicConcerts />} />
     <Route path="/events/event-details" element={<EventDetailPage />} />
   </Routes>

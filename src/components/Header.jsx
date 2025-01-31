@@ -4,9 +4,9 @@ import Logo from "../assets/experium-logo.png";
 
 const Header = ({ pageId }) => {
   const menuItems = [
-    { title: "Home", path: "home/MiracleFlowerGarden" },
+    { title: "Home", path: "" },
     { title: "Events", path: "events" },
-    { title: "Bulk Bookings", path: "Booking" },
+    { title: "Group Bookings", path: "groupBookings" },
   ];
 
   return (
@@ -32,7 +32,7 @@ const Header = ({ pageId }) => {
           alignItems: "center",
           height: "100%",
           paddingLeft: "1rem",
-          width: "15rem",
+          width: "70vw",
         }}
       >
         <img
@@ -40,14 +40,13 @@ const Header = ({ pageId }) => {
           alt="Experium Logo"
           style={{ height: "90%", width: "15rem" }} // Adjusts logo size to 8% of header height
         />
-      </Box>
-
-      {/* Middle Section: Menu Bar */}
-      <Box
+        <Box
         sx={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "left",
           gap: "4rem",
+          marginLeft:'20px',
+          marginTop:'20px'
         }}
       >
         {menuItems.map((item, index) => (
@@ -55,11 +54,11 @@ const Header = ({ pageId }) => {
             key={index}
             onClick={() => (window.location.href = `/${item.path.toLowerCase()}`)} // Redirect logic
             sx={{
-              fontSize: "1.3rem",
-              fontWeight: "400",
+              fontSize: "1.4rem",
+              fontWeight: "600",
               cursor: "pointer",
               lineHeight: "18px",
-              color: pageId === item.path ? "#C0029D" : "#E4A3D4", // Active item color
+              color: pageId === item.path ? "#C0029D" : "#d945b4", // Active item color
               fontFamily: "League Spartan",
               transition: "all 0.3s ease",
               transform: pageId === item.path ? "scale(1.2)" : "none", // Active item zoom
@@ -72,7 +71,11 @@ const Header = ({ pageId }) => {
             {item.title}
           </Typography>
         ))}
+      </Box>  
       </Box>
+
+      {/* Middle Section: Menu Bar */}
+      
 
       {/* Right Section: Link and Button */}
       <Box

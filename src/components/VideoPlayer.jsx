@@ -4,8 +4,9 @@ import { Text } from "@react-three/drei";
 import { Box, Grow, IconButton, Slider,Button} from "@mui/material";
 import { VolumeOff, VolumeUp, PlayArrow, Pause, Audiotrack, MusicOff } from "@mui/icons-material";
 
-
-const VideoPage = ({ videoUrl }) => {
+import { useNavigate } from "react-router-dom";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+const VideoPage = ({ videoUrl,id }) => {
   const [scrollY, setScrollY] = useState(0);
   const [inViewport, setInViewport] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -14,6 +15,11 @@ const VideoPage = ({ videoUrl }) => {
   const [volume, setVolume] = useState(1);
 
   const videoRef = useRef(null);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/garden/${id}`);
+  };
 
 
   const handleMuteToggle = () => {
@@ -82,7 +88,7 @@ console.log(isPlaying)
 ref={videoRef}
 style={{
 width: "80vw",
-height: "80vh",
+height: "75vh",
 objectFit: "cover",
 }}
 
@@ -96,17 +102,24 @@ onTimeUpdate={handleTimeUpdate}
 Your browser does not support the video tag.
 </video>
 
-<Box sx={{textAlign:'center',textDecoration:'underline'}}>
-           
-           <Button  sx={{marginTop:'5px',color:'orange'}} >Know More..</Button>
-           </Box>
+<Box sx={{ textAlign: "center", marginTop: "5px" }}>
+      <Button
+        variant="contained"
+        color="warning"
+        endIcon={<ArrowForwardIcon />}
+        onClick={handleClick}
+        sx={{borderRadius:'15px'}}
+      >
+        Know More
+      </Button>
+    </Box>
     {/* Unmute Icon */}
     {!isPlaying && (
       <IconButton
         onClick={handlePlay}
         sx={{
           position: "absolute",
-          bottom: "10%",
+          bottom: "40%",
           left: "50%",
           transform: "translate(-50%, -50%)",
           color: "orange",
@@ -130,12 +143,13 @@ Your browser does not support the video tag.
       <Box
         sx={{
           position: "absolute",
-          bottom: "10px",
+          bottom: "15%",
           left: "50%",
           transform: "translateX(-50%)",
           width: "50%",
-          backgroundColor: "rgb(255, 255, 255)",
+          backgroundColor: "transparent",
           borderRadius: "8px",
+          border:'2px solid',
           padding: "10px",
           display: "flex",
           alignItems: "center",
