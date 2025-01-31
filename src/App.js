@@ -7,6 +7,7 @@ import AllEvents from "./Pages/AllEvents"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import EventDetailPage from "./Pages/EventDetail"
 import MusicConcerts from "./Pages/MusicConcerts"
+import Background3D from "./components/Background3d"
 
 // Main App Component
 function App() {
@@ -85,8 +86,8 @@ function App() {
 
   return (
     <>
-     
-      
+  
+   
 
      <BrowserRouter>
   <Routes>

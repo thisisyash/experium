@@ -68,7 +68,10 @@ console.log(isPlaying)
     <Box
     sx={{
       position: "relative",
-      backgroundColor: "black",
+    height:'100%',
+    width:'100%',
+    
+
       overflow: "hidden",
       borderRadius: "10px",
     }}
@@ -93,7 +96,10 @@ onTimeUpdate={handleTimeUpdate}
 Your browser does not support the video tag.
 </video>
 
-
+<Box sx={{textAlign:'center',textDecoration:'underline'}}>
+           
+           <Button  sx={{marginTop:'5px',color:'orange'}} >Know More..</Button>
+           </Box>
     {/* Unmute Icon */}
     {!isPlaying && (
       <IconButton
@@ -172,7 +178,7 @@ Your browser does not support the video tag.
       </Box>
     )}
   </Box>
- 
+  
    </>
   );
 };

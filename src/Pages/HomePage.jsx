@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import gsap from "gsap";
 import { useParams } from "react-router-dom";
 import CardComponent from "../components/HomeCard";
+import Background3D from "../components/Background3d";
 
 function HomePage() {
   const [scrollIndex, setScrollIndex] = useState(0);
@@ -76,12 +77,16 @@ function HomePage() {
   }, []);
 console.log(sectionRefs,'sec')
   return (
-    <Box sx={{ background: "#f5f2f5" }}>
+    <Box >
+
       <div ref={headerRef} style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 10 }}>
         <Header pageId={""} />
       </div>
-      <div style={{ marginTop: "80px",background:'#f0f5f1 ' }}>
+      
+      <div style={{ marginTop: "80px" }}>
         {videoData.map((data, index) => (
+          <>
+         
           <HomeSection
             key={index}
             id={data.id}
@@ -91,6 +96,7 @@ console.log(sectionRefs,'sec')
             ref={(el) => sectionRefs.current[index] = el} // Assign ref dynamically
             scrollIndex={scrollIndex}
           />
+          </>
         ))}
       </div>
       <CardComponent/>

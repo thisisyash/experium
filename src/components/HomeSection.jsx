@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VideoPage from "./VideoPlayer";
 import { ConstructionOutlined } from "@mui/icons-material";
+import Background3D from "./Background3d";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -165,9 +166,12 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
   
   return (
     <>
-     
+     <Background3D  />
+               
+          
       <Box sx={{padding:'5px',textShadow: '2px 2pxrgb(115, 23, 63)'}} id={id}>
      
+      
       <Canvas
      
       camera={{ position: [0, 0, 5] }}
@@ -217,8 +221,6 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       >
         {/* 3D Canvas Section */}
    
-
-
       
        {
       <Box
@@ -246,16 +248,13 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
             Your browser does not support the video tag.
           </video> */}
           <VideoPage videoUrl={videoUrl}/>
-   
+         
       
     </Box>
     
     
         }
-          <Box sx={{textAlign:'center',textDecoration:'underline'}}>
-           
-           <Button  sx={{margin:'5px',color:'orange'}} >Know More..</Button>
-           </Box>
+         
       </Box>
     
       </Box>
