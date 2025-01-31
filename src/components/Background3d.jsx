@@ -1,45 +1,61 @@
 import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
-import * as THREE from "three";
+import { Sphere, Environment } from "@react-three/drei";
 
-const ParticleField = ({ color = "#b89cb3" }) => {
-  const pointsRef = useRef();
+const WaterBubbles = React.memo(() => {
+  const groupRef = useRef();
 
-  const particles = useMemo(() => {
-    const positions = new Float32Array(3000);
-    for (let i = 0; i < 1000; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 10;
-      positions[i + 1] = (Math.random() - 0.5) * 10;
-      positions[i + 2] = (Math.random() - 0.5) * 10;
-    }
-    return positions;
+  const bubbles = useMemo(() => {
+    return new Array(200).fill().map(() => ({
+      position: [
+        (Math.random() - 0.5) * 6,
+        (Math.random() - 0.5) * 6,
+        (Math.random() - 0.5) * 6,
+      ],
+      scale: Math.random() * 0.03 + 0.01, // Smaller range
+      speed: Math.random() * 0.5 + 0.05, // Slower movement
+      color: `hsl(${Math.random() * 50 + 190}, 80%, 70%)`, // Bluish gradient shades
+    }));
   }, []);
 
   useFrame(({ clock }) => {
     const elapsed = clock.getElapsedTime();
-    if (pointsRef.current) {
-        pointsRef.current.rotation.y = elapsed * 0.1;
-    pointsRef.current.rotation.x = elapsed * 0.05;
+    if (groupRef.current) {
+      groupRef.current.rotation.y = elapsed * 0.01;
+      groupRef.current.rotation.x = elapsed * 0.005;
+
+      groupRef.current.children.forEach((bubble, i) => {
+        if (i % 2 === 0) {
+          bubble.position.y += Math.sin(elapsed * bubbles[i].speed) * 0.0005;
+        }
+      });
     }
   });
 
   return (
-    <Points ref={pointsRef} positions={particles} stride={3} frustumCulled={false}>
-      <PointMaterial
-        transparent
-        attach="material"
-        vertexColors={false} // Ensure it doesn't override the color
-        color={new THREE.Color(color)} // Explicitly set the color
-        size={0.06}
-        sizeAttenuation
-        depthWrite={false} // Prevents blending issues
-      />
-    </Points>
+    <group ref={groupRef}>
+      {bubbles.map((bubble, i) => (
+        <Sphere key={i} args={[1, 32, 32]} scale={bubble.scale} position={bubble.position}>
+        <meshPhysicalMaterial
+          transmission={0.25}
+          ior={1.1}
+          opacity={0.8}
+          clearcoat={0.8}
+          roughness={0}
+          metalness={0.1}
+          thickness={0.02}
+          color={bubble.color}
+          emissive={bubble.color}
+          emissiveIntensity={0.2}
+          envMapIntensity={1.2}
+        />
+      </Sphere>
+      ))}
+    </group>
   );
-};
+});
 
-const Background3D = ({ bgColor = "#F5EFFF", particleColor = "#b89cb3" }) => {
+const Background3D = ({ bgColor = "#F5EFFF" }) => {
   return (
     <div
       style={{
@@ -47,14 +63,18 @@ const Background3D = ({ bgColor = "#F5EFFF", particleColor = "#b89cb3" }) => {
         top: 0,
         left: 0,
         width: "100vw",
-        height: "400vh",
+        height: "700vh",
         zIndex: -1,
       }}
     >
-      <Canvas camera={{ position: [0, 0, 5] }}>
+      <Canvas
+        camera={{ position: [0, 0, 7] }}
+        gl={{ antialias: false, powerPreference: "low-power", alpha: false }}
+      >
         <color attach="background" args={[bgColor]} />
         <ambientLight intensity={0.5} />
-        <ParticleField color={particleColor} />
+        <Environment preset="city" />
+        <WaterBubbles />
       </Canvas>
     </div>
   );

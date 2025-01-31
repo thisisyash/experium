@@ -119,7 +119,7 @@ Your browser does not support the video tag.
         onClick={handlePlay}
         sx={{
           position: "absolute",
-          bottom: "40%",
+          bottom: "20%",
           left: "50%",
           transform: "translate(-50%, -50%)",
           color: "orange",
@@ -149,7 +149,7 @@ Your browser does not support the video tag.
           width: "50%",
           backgroundColor: "transparent",
           borderRadius: "8px",
-          border:'2px solid',
+         
           padding: "10px",
           display: "flex",
           alignItems: "center",

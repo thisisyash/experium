@@ -176,7 +176,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
      
       camera={{ position: [0, 0, 5] }}
       shadows // Enable shadows in the canvas
-      style={{ height: "85vh",width:'50vh', top: "25px", width: "100vw", display: "flex"}}
+      style={{ height: "65vh",width:'50vh', top: "25px", width: "100vw", display: "flex"}}
     >
       {/* Ambient light for general illumination */}
       <ambientLight intensity={0.3} />

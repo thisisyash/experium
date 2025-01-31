@@ -3,20 +3,36 @@ import {
   Card,
   CardContent,
   Typography,
-  CardMedia,
   Collapse,
+  IconButton,
+  Slider,
+  Box,
 } from "@mui/material"
 import Grid from "@mui/material/Grid2"
+import { VolumeOff, VolumeUp, PlayArrow, Pause } from "@mui/icons-material"
 
 const CardComponent = () => {
   const [expanded, setExpanded] = useState(null) // Track expanded state
-  const [visibleCards, setVisibleCards] = useState({}) // Track visibility of each card individually
-  const [animationTriggered, setAnimationTriggered] = useState({}) // Track if animation has already been triggered
+  const [visibleCards, setVisibleCards] = useState({}) // Track visibility (via IntersectionObserver)
+  const [animationTriggered, setAnimationTriggered] = useState({}) // Track if animation has been triggered once
 
-  // Handle the expansion of the card on button click
-  const handleExpandClick = (id) => {
-    setExpanded(expanded === id ? null : id) // Toggle collapse
-  }
+  // Per-card video states:
+  // {
+  //   [cardId]: {
+  //     isPlaying: boolean,
+  //     isMuted: boolean,
+  //     currentTime: number,
+  //     duration: number,
+  //     volume: number
+  //   }
+  // }
+  const [videoStates, setVideoStates] = useState({})
+
+  // Keep refs to each card container (for intersection observing).
+  const cardRefs = useRef([])
+
+  // Keep refs to each actual HTML <video>.
+  const videoRefs = useRef({})
 
   // Cards data
   const cards = [
@@ -50,31 +66,55 @@ const CardComponent = () => {
     },
   ]
 
-  // Using useRef to store refs for each card
-  const cardRefs = useRef([]) // Array of refs for each card
-  const videoRefs = useRef([]) // Array of refs for video elements
-  const textRefs = useRef([]) // Array of refs for text elements
+  // Initialize each card's video state (only if not already set)
+  useEffect(() => {
+    const newVideoStates = { ...videoStates }
+    cards.forEach((card) => {
+      if (!newVideoStates[card.id]) {
+        newVideoStates[card.id] = {
+          isPlaying: false,
+          isMuted: true,
+          currentTime: 0,
+          duration: 0,
+          volume: 1,
+        }
+      }
+    })
+    setVideoStates(newVideoStates)
+    // eslint-disable-next-line
+  }, [cards])
+
+  // Utility to set partial state of a given card’s video
+  const setVideoState = (cardId, newProps) => {
+    setVideoStates((prev) => ({
+      ...prev,
+      [cardId]: {
+        ...prev[cardId],
+        ...newProps,
+      },
+    }))
+  }
 
   // IntersectionObserver logic for each card
   const observeVisibility = (id) => {
     const options = {
-      root: null, // Use the viewport as the root
+      root: null, // Use the viewport
       rootMargin: "0px",
-      threshold: 0.5, // Trigger when 50% of the card is in view
+      threshold: 0.5, // Trigger at 50% visibility
     }
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        // When the card enters the viewport
+        // When card enters view
         if (entry.isIntersecting && !animationTriggered[id]) {
-          setVisibleCards((prevState) => ({ ...prevState, [id]: true }))
-          setAnimationTriggered((prevState) => ({ ...prevState, [id]: true })) // Mark animation as triggered
+          setVisibleCards((prev) => ({ ...prev, [id]: true }))
+          setAnimationTriggered((prev) => ({ ...prev, [id]: true }))
         }
 
-        // When the card exits the viewport
+        // When card exits view
         if (!entry.isIntersecting) {
-          setVisibleCards((prevState) => ({ ...prevState, [id]: false })) // Make card invisible again
-          setAnimationTriggered((prevState) => ({ ...prevState, [id]: false })) // Reset animation trigger
+          setVisibleCards((prev) => ({ ...prev, [id]: false }))
+          setAnimationTriggered((prev) => ({ ...prev, [id]: false }))
         }
       })
     }, options)
@@ -83,7 +123,7 @@ const CardComponent = () => {
       observer.observe(cardRefs.current[id])
     }
 
-    // Cleanup observer when card is removed from view
+    // Cleanup observer
     return () => {
       if (cardRefs.current[id]) {
         observer.unobserve(cardRefs.current[id])
@@ -91,32 +131,89 @@ const CardComponent = () => {
     }
   }
 
-  // Set up IntersectionObservers on component mount
   useEffect(() => {
     const cleanupFunctions = cards.map((card) => observeVisibility(card.id))
-
-    // Cleanup on unmount
     return () => {
-      cleanupFunctions.forEach((cleanup) => cleanup())
+      cleanupFunctions.forEach((cleanup) => cleanup && cleanup())
     }
-  }, [cards])
+    // eslint-disable-next-line
+  }, [])
+
+  // ----- Custom Video Handlers (similar to first snippet) -----
+
+  // 1) Toggle Play/Pause
+  const handlePlayToggle = (cardId) => {
+    const videoEl = videoRefs.current[cardId]
+    if (!videoEl) return
+
+    if (videoStates[cardId].isPlaying) {
+      videoEl.pause()
+      setVideoState(cardId, { isPlaying: false })
+    } else {
+      videoEl.play()
+      setVideoState(cardId, { isPlaying: true })
+    }
+  }
+
+  // 2) Toggle Mute
+  const handleMuteToggle = (cardId) => {
+    const videoEl = videoRefs.current[cardId]
+    if (!videoEl) return
+
+    const currentlyMuted = videoStates[cardId].isMuted
+    videoEl.muted = !currentlyMuted
+    setVideoState(cardId, { isMuted: !currentlyMuted })
+  }
+
+  // 3) Track the currentTime
+  const handleTimeUpdate = (cardId) => {
+    const videoEl = videoRefs.current[cardId]
+    if (!videoEl) return
+
+    setVideoState(cardId, { currentTime: videoEl.currentTime })
+  }
+
+  // 4) Handle Volume
+  const handleVolumeChange = (cardId, newVolume) => {
+    const videoEl = videoRefs.current[cardId]
+    if (!videoEl) return
+
+    videoEl.volume = newVolume
+    videoEl.muted = newVolume === 0
+    setVideoState(cardId, {
+      volume: newVolume,
+      isMuted: newVolume === 0,
+    })
+  }
+
+  // 5) On loaded metadata, set duration
+  const handleLoadedMetadata = (cardId) => {
+    const videoEl = videoRefs.current[cardId]
+    if (!videoEl) return
+
+    setVideoState(cardId, { duration: videoEl.duration })
+  }
+
+  // ----- Card Expansion (not mandatory for the video logic) -----
+  const handleExpandClick = (id) => {
+    setExpanded(expanded === id ? null : id) // Toggle collapse
+  }
 
   return (
-    <Grid container spacing={2} justifyContent="center">
+    <Grid container spacing={2} justifyContent="center" sx={{ background: "#f5f2f5" }}>
       {cards.map((card, index) => {
+        const vState = videoStates[card.id] || {}
         return (
           <Grid
             item
             xs={12}
             sm={6}
             md={4}
-            lg={4}
+            lg={6}
             key={card.id}
             sx={{ background: "#f5f2f5" }}
           >
             <div ref={(el) => (cardRefs.current[card.id] = el)} id={card.tagId}>
-              {/* Apply Grow animation only when card is visible */}
-
               <Card
                 sx={{
                   display: "flex",
@@ -126,57 +223,171 @@ const CardComponent = () => {
                   },
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow: 3,
-                  borderRadius: 2,
                   boxShadow: "none",
+                  borderRadius: 2,
                   width: "100%",
-                  height: { xs: "auto", sm: "85vh" },
-                  flexWrap: "nowrap", // Prevents wrapping
-                  marginTop: "500px",
+                  height: "100vh",
+                  flexWrap: "nowrap",
+                  marginTop: "30px",
                   background: "#f5f2f5",
                 }}
               >
-                <CardMedia
-                  component="video"
+                {/* ----------- VIDEO SECTION (Custom controls) ----------- */}
+                <Box
                   sx={{
-                    flex: "1 1 50%", // Takes up half of the available space
-                    maxWidth: { xs: "100%", sm: "50%" }, // Full width on small screens, 50% on larger
-                    height: "auto",
-                    objectFit: "cover",
-                    borderTopLeftRadius: { sm: 2, xs: 0 },
-                    borderBottomLeftRadius: { sm: 2, xs: 0 },
-                    margin: "20px",
+                    flex: "1 1 50%",
+                    maxWidth: { xs: "100%", sm: "50%", lg: "60%" },
+                    padding: "20px",
+                    position: "relative", // so we can absolutely-position controls
+                    overflow: "hidden",
                     transform: visibleCards[card.id]
-                      ? "translateY(0)"
-                      : "translateY(100%)",
+                      ? "translate(0, 0)"
+                      : index % 2 === 0
+                      ? "translate(-100%, 100%)"
+                      : "translate(150%, -100%)",
                     opacity: visibleCards[card.id] ? 1 : 0,
-                    transition: "transform 1s ease-out, opacity 1s ease-out",
+                    transition: "transform 1.5s ease-in-out, opacity 1.5s ease-in-out",
+             
+                 
+                    borderRadius: "8px",
+                 
                   }}
-                  src={card.videoUrl}
-                  alt={card.title}
-                  controls
-                />
+                >
+                  <video
+                    ref={(videoEl) => (videoRefs.current[card.id] = videoEl)}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      objectFit: "cover",
+                    }}
+                    muted={vState.isMuted}
+                    onTimeUpdate={() => handleTimeUpdate(card.id)}
+                    onLoadedMetadata={() => handleLoadedMetadata(card.id)}
+                    // Remove default controls
+                    // autoPlay or loop if desired
+                    // loop
+                  >
+                    <source src={card.videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+
+                  {/* -- Below is an example of replicating the custom controls from snippet #1 -- */}
+
+                  {/* 1) If video is muted, show a big unmute button in the center (like snippet #1). */}
+                  {!vState.isPlaying && (
+                    <IconButton
+                      onClick={() => handlePlayToggle(card.id)}
+                      sx={{
+                        position: "absolute",
+                        bottom: "10%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        color: "orange",
+                        backgroundColor: "black",
+                        borderRadius: "10%",
+                        opacity: 0.6,
+                        "&:hover": {
+                          backgroundColor: "white",
+                          color: "orange",
+                        },
+                        zIndex: 10,
+                      }}
+                    >
+                      <PlayArrow sx={{ fontSize: "3rem" }} />
+                    </IconButton>
+                  )}
+
+                  {/* 2) If video is unmuted, show the full control bar */}
+                  {vState.isPlaying && (
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        bottom: "10px",
+                        left: "50%",
+                        transform: "translateX(-50%)",
+                        width: "50%",
+                        backgroundColor: "transparent",
+                        borderRadius: "8px",
+                        padding: "10px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        color: "orange",
+                      }}
+                    >
+                      {/* Play/Pause */}
+                      <IconButton onClick={() => handlePlayToggle(card.id)}>
+                        {vState.isPlaying ? (
+                        <Pause sx={{ color: "orange", fontSize: "xx-large" }} /> ) : (
+                            <PlayArrow sx={{ color: "orange", fontSize: "xx-large" }} />
+                        
+                        )}
+                      </IconButton>
+
+                      {/* Progress Slider */}
+                      <Slider
+                        value={vState.currentTime}
+                        min={0}
+                        max={vState.duration || 100}
+                        onChange={(e, newValue) => {
+                          const videoEl = videoRefs.current[card.id]
+                          if (!videoEl) return
+                          videoEl.currentTime = newValue
+                          setVideoState(card.id, { currentTime: newValue })
+                        }}
+                        sx={{
+                          color: "orange",
+                          mx: 2,
+                        }}
+                      />
+
+                      {/* Volume Slider */}
+                      <Slider
+                        value={vState.volume}
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        onChange={(e, newValue) => handleVolumeChange(card.id, newValue)}
+                        sx={{
+                          width: "200px",
+                          color: "orange",
+                        }}
+                      />
+
+                      {/* Mute/Unmute Icon */}
+                      <VolumeUp
+                        sx={{ fontSize: "2rem", marginLeft: "15px", cursor: "pointer" }}
+                        onClick={() => handleMuteToggle(card.id)}
+                      />
+                    </Box>
+                  )}
+                </Box>
+                {/* ----------- END VIDEO SECTION ----------- */}
+
+                {/* ----------- TEXT SECTION ----------- */}
                 <CardContent
                   sx={{
-                    flex: "1 1 50%", // Takes up half of the available space
-                    minWidth: 0, // Prevents overflow issues
+                    flex: "1 1 50%",
+                    minWidth: 0,
                     textAlign: {
                       xs: "center",
                       sm: index % 2 === 0 ? "right" : "left",
                     },
                     padding: 2,
                     transform: visibleCards[card.id]
-                      ? "translateY(0)"
-                      : "translateY(-100%)",
+                      ? "translate(0, 0)"
+                      : index % 2 === 0
+                      ? "translate(100%, -100%)"
+                      : "translate(-100%, 100%)",
                     opacity: visibleCards[card.id] ? 1 : 0,
-                    transition: "transform 1s ease-out, opacity 1s ease-out",
+                    transition: "transform 1.5s ease-in-out, opacity 1s ease-in-out",
                   }}
                 >
                   <Typography
                     variant="h1"
                     component="h2"
                     sx={{
-                      fontWeight: "700",
+                      fontWeight: 700,
                       margin: 1,
                       color: "#C0029D",
                       background: "#f5f2f5",
@@ -184,6 +395,7 @@ const CardComponent = () => {
                   >
                     {card.title}
                   </Typography>
+                  {/* Add any other text or expand buttons here */}
                 </CardContent>
               </Card>
             </div>
