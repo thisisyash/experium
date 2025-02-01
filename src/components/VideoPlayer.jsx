@@ -74,7 +74,7 @@ const VideoPage = ({ videoUrl,id }) => {
     <Box
     sx={{
       position: "relative",
-    height:'100%',
+    height:'100vh',
     width:'100%',
     
 
@@ -87,9 +87,9 @@ const VideoPage = ({ videoUrl,id }) => {
 <video
 ref={videoRef}
 style={{
-width: "80vw",
-height: "75vh",
-objectFit: "cover",
+width: "100vw",
+height: "90vh",
+objectFit: "contain",
 }}
 
 muted
@@ -105,10 +105,10 @@ Your browser does not support the video tag.
 <Box sx={{ textAlign: "center", marginTop: "5px" }}>
       <Button
         variant="contained"
-        color="warning"
+       
         endIcon={<ArrowForwardIcon />}
         onClick={handleClick}
-        sx={{borderRadius:'15px'}}
+        sx={{borderRadius:'15px', color:"#C0029D", background:'white',marginTop:'5px'}}
       >
         Know More
       </Button>
@@ -119,22 +119,22 @@ Your browser does not support the video tag.
         onClick={handlePlay}
         sx={{
           position: "absolute",
-          bottom: "20%",
+          bottom: "30%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          color: "orange",
+          color: "#C0029D",
           backgroundColor: "black",
           borderRadius: "10%",
           opacity: 0.6,
           animation: 'ease-in-out',
           "&:hover": {
             backgroundColor: "white",
-            color: "orange",
+            color: "#C0029D",
           },
           zIndex: 10,
         }}
       >
-        <PlayArrow color="orange" sx={{fontSize:"3rem"}}/>
+        <PlayArrow color="#C0029D" sx={{fontSize:"3rem"}}/>
       </IconButton>
     )}
 
@@ -154,11 +154,11 @@ Your browser does not support the video tag.
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          color: "orange",
+          color: "#C0029D",
         }}
       >
         <IconButton onClick={handlePlayToggle}>
-          {isPlaying ?  <PlayArrow   sx={{ color: "orange", fontSize:'xx-large' }}/> : <Pause  sx={{ color: "orange", fontSize:'xx-large' }} />}
+          {isPlaying ?  <Pause   sx={{ color: "#C0029D", fontSize:'xx-large' }}/> : <PlayArrow  sx={{ color: "#C0029D", fontSize:'xx-large' }} />}
         </IconButton>
 
         <Slider
@@ -169,7 +169,7 @@ Your browser does not support the video tag.
             if (videoRef.current) videoRef.current.currentTime = value;
           }}
           sx={{
-            color: "orange",
+            color: "#C0029D",
             mx: 2,
           }}
         />
@@ -183,12 +183,12 @@ Your browser does not support the video tag.
           onChange={handleVolumeChange}
           sx={{
             width: "200px",
-            color: "orange",
+            color: "#C0029D",
             
           }}
         />
 
-        <VolumeUp onClick={handleMuteToggle}  color="orange" style={{fontSize:'2rem',marginLeft:'15px'}} />
+        <VolumeUp onClick={handleMuteToggle}  color="#C0029D" style={{fontSize:'2rem',marginLeft:'15px'}} />
       </Box>
     )}
   </Box>

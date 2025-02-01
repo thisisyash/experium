@@ -1,22 +1,23 @@
 import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Sphere, Environment } from "@react-three/drei";
-
+import * as THREE from "three";
 const WaterBubbles = React.memo(() => {
   const groupRef = useRef();
 
   const bubbles = useMemo(() => {
-    return new Array(200).fill().map(() => ({
-      position: [
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6,
-        (Math.random() - 0.5) * 6,
-      ],
+    return new Array(300).fill().map(() => ({
+        position: [
+            (Math.random() - 0.5) * 10, // Increase spread on X-axis
+            (Math.random() - 0.6) * 25, // Increase Y range so they appear higher up
+            (Math.random() - 0.5) * 10, // Increase spread on Z-axis
+          ],
       scale: Math.random() * 0.03 + 0.01, // Smaller range
       speed: Math.random() * 0.5 + 0.05, // Slower movement
       color: `hsl(${Math.random() * 50 + 190}, 80%, 70%)`, // Bluish gradient shades
     }));
   }, []);
+  
 
   useFrame(({ clock }) => {
     const elapsed = clock.getElapsedTime();
@@ -35,8 +36,8 @@ const WaterBubbles = React.memo(() => {
   return (
     <group ref={groupRef}>
       {bubbles.map((bubble, i) => (
-        <Sphere key={i} args={[1, 32, 32]} scale={bubble.scale} position={bubble.position}>
-        <meshPhysicalMaterial
+       <Sphere key={i} args={[1, 32, 32]} scale={bubble.scale} position={bubble.position}>
+       <meshPhysicalMaterial
           transmission={0.25}
           ior={1.1}
           opacity={0.8}
@@ -45,11 +46,11 @@ const WaterBubbles = React.memo(() => {
           metalness={0.1}
           thickness={0.02}
           color={bubble.color}
-          emissive={bubble.color}
+  emissive={bubble.color}
           emissiveIntensity={0.2}
           envMapIntensity={1.2}
-        />
-      </Sphere>
+/>
+     </Sphere>
       ))}
     </group>
   );
@@ -73,9 +74,10 @@ const Background3D = ({ bgColor = "#F5EFFF" }) => {
       >
         <color attach="background" args={[bgColor]} />
         <ambientLight intensity={0.5} />
-        <Environment preset="city" />
+        <Environment preset="sunset" />
         <WaterBubbles />
       </Canvas>
+      
     </div>
   );
 };

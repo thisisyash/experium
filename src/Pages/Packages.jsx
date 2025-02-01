@@ -13,7 +13,10 @@ import Grid from "@mui/material/Grid2"
 import { VolumeOff, VolumeUp, PlayArrow, Pause } from "@mui/icons-material"
 import Experium from '../assets/exp-thumb.png'
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-const CardComponent = () => {
+import Header from "../components/Header"
+import { useNavigate } from "react-router-dom"
+const Packages = () => {
+const navigate=useNavigate()
   const [expanded, setExpanded] = useState(null) // Track expanded state
   const [visibleCards, setVisibleCards] = useState({}) // Track visibility (via IntersectionObserver)
   const [animationTriggered, setAnimationTriggered] = useState({}) // Track if animation has been triggered once
@@ -40,29 +43,22 @@ const CardComponent = () => {
   const cards = [
     {
       id: 1,
-      tagId: "CactusGarden",
-      title: "Cactus Garden",
+      tagId: "School",
+      title: "School Packages",
       videoUrl:
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
       id: 2,
-      tagId: "PalmGarden",
-      title: "Palm Garden",
+      tagId: "Corporate",
+      title: "Corporate Bookings",
       videoUrl:
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
     {
       id: 3,
-      tagId: "Amphitheatre",
-      title: "Amphitheatre",
-      videoUrl:
-        "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    },
-    {
-      id: 4,
-      tagId: "Sculpture",
-      title: "Sculpture's",
+      tagId: "Community",
+      title: "Community Bookings",
       videoUrl:
         "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     },
@@ -102,7 +98,7 @@ const CardComponent = () => {
     const options = {
       root: null, // Use the viewport
       rootMargin: "0px",
-      threshold: 0.5, // Trigger at 50% visibility
+      threshold: 0.2, // Trigger at 50% visibility
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -202,7 +198,8 @@ const CardComponent = () => {
   }
 
   return (
-    <Grid container spacing={2} justifyContent="center" sx={{ background: "#fffcfe" }}>
+    <Grid container spacing={2} justifyContent="center" sx={{ background: "#f5effe" }}>
+    <Header/>
       {cards.map((card, index) => {
         const vState = videoStates[card.id] || {}
         return (
@@ -213,7 +210,7 @@ const CardComponent = () => {
             md={4}
             lg={6}
             key={card.id}
-            sx={{ background: "#f5effe" }}
+            sx={{ background: "#f5effe" , height:'120vh', width:'100vw'}}
           >
             <div ref={(el) => (cardRefs.current[card.id] = el)} id={card.tagId}>
               <Card
@@ -228,9 +225,9 @@ const CardComponent = () => {
                   boxShadow: "none",
                   borderRadius: 2,
                   width: "100%",
-                  height: "80vh",
+                  height: "100vh",
                   flexWrap: "nowrap",
-                  marginTop: "30px",
+                  // marginTop: "30px",
                   background: "#f5effe00",
                 }}
               >
@@ -286,13 +283,13 @@ const CardComponent = () => {
                         bottom: "10%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
-                        color: "orange",
+                        color: "#C0029D",
                         backgroundColor: "black",
                         borderRadius: "10%",
                         opacity: 0.6,
                         "&:hover": {
                           backgroundColor: "white",
-                          color: "orange",
+                          color: "#C0029D",
                         },
                         zIndex: 10,
                       }}
@@ -316,14 +313,14 @@ const CardComponent = () => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        color: "orange",
+                        color: "#C0029D",
                       }}
                     >
                       {/* Play/Pause */}
                       <IconButton onClick={() => handlePlayToggle(card.id)}>
                         {vState.isPlaying ? (
-                        <Pause sx={{ color: "orange", fontSize: "xx-large" }} /> ) : (
-                            <PlayArrow sx={{ color: "orange", fontSize: "xx-large" }} />
+                        <Pause sx={{ color: "#C0029D", fontSize: "xx-large" }} /> ) : (
+                            <PlayArrow sx={{ color: "#C0029D", fontSize: "xx-large" }} />
                         
                         )}
                       </IconButton>
@@ -340,7 +337,7 @@ const CardComponent = () => {
                           setVideoState(card.id, { currentTime: newValue })
                         }}
                         sx={{
-                          color: "orange",
+                          color: "#C0029D",
                           mx: 2,
                         }}
                       />
@@ -354,7 +351,7 @@ const CardComponent = () => {
                         onChange={(e, newValue) => handleVolumeChange(card.id, newValue)}
                         sx={{
                           width: "200px",
-                          color: "orange",
+                          color: "#C0029D",
                         }}
                       />
 
@@ -404,15 +401,21 @@ const CardComponent = () => {
                     {card.title}
                   </Typography>
              
-                <Button
-        variant="contained"
-       href="/attractions"
-        endIcon={<ArrowForwardIcon />}
-       
-        sx={{borderRadius:'15px', color:"#C0029D", background:'white',marginTop:'5px'}}
-      >
-        Know More
-      </Button>
+                  <Button
+  variant="contained"
+  endIcon={<ArrowForwardIcon />}
+href="/groupBooking"
+  sx={{
+    borderRadius: "15px",
+    color: "#C0029D",
+    background: "white",
+    marginTop: "5px",
+  }}
+>
+  Book Now
+</Button>
+
+      
                 </CardContent>
               </Card>
             </div>
@@ -423,4 +426,4 @@ const CardComponent = () => {
   )
 }
 
-export default CardComponent
+export default Packages

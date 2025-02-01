@@ -10,6 +10,7 @@ import MusicConcerts from "./Pages/MusicConcerts"
 import Background3D from "./components/Background3d"
 import ViewGarden from "./Pages/ViewGarden"
 import Attractions from "./Pages/Attractions"
+import Packages from "./Pages/Packages"
 import GroupBooking from "./Pages/GroupBooking"
 
 // Main App Component
@@ -98,10 +99,15 @@ function App() {
     <Route path="/home/:id" element={<HomePage />} />
     <Route path="/garden/:id" element={<ViewGarden />} />
     <Route path="/events" element={<AllEvents />} />
-    <Route path="/groupBookings" element={<GroupBooking />} />
+  
     <Route path="/events/music-concert" element={<MusicConcerts />} />
     <Route path="/events/event-details" element={<EventDetailPage />} />
-    <Route path="/attractions" element={<Attractions />} />  </Routes>
+    
+    <Route path="/packages" element={<Packages />} />
+    <Route path="/attractions" element={<Attractions />} />  
+    <Route path="/groupBooking" element={<GroupBooking />} />
+    </Routes>
+    
 </BrowserRouter>
     </>
     

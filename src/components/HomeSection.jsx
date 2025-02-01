@@ -7,7 +7,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import VideoPage from "./VideoPlayer";
 import { ConstructionOutlined } from "@mui/icons-material";
-import Background3D from "./Background3d";
+import BubbleScene from "./Bubble";
+// import Background3D from "./Background3d";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,13 +17,13 @@ const Title = ({ scrollY, title }) => {
   
     useFrame(() => {
       if (mesh.current) {
-        const tiltFactor = Math.sin(scrollY * 0.0005) / 100;
-        const sideTiltFactor = Math.sin(scrollY * 0.005) / 7;
+        const tiltFactor = Math.sin(scrollY * 0.0005) / 10;
+        const sideTiltFactor = Math.sin(scrollY * 0.005) / 10;
         const zTiltFactor = Math.sin(scrollY * 0.005) / 100;
   
         mesh.current.rotation.x = -tiltFactor;
         mesh.current.rotation.y = sideTiltFactor;
-        mesh.current.rotation.z = -zTiltFactor;
+        mesh.current.rotation.z = -zTiltFactor*10;
   
         const scaleFactor = 1 + Math.sin(scrollY * 0.01) * 0.001;
         mesh.current.scale.set(scaleFactor, scaleFactor, 1);
@@ -32,16 +33,17 @@ const Title = ({ scrollY, title }) => {
     return (
       <Text
         ref={mesh}
-        fontSize={1.5} // Adjust font size
+        fontSize={7} // Adjust font size
         color="#C0029D" // Text color
         position={[0, -1, 0]} // Position of the text
         anchorY="middle"
         anchorX="center"
         fontWeight={900}
-        maxWidth={15} // Ensures the text wraps to the next line
+        maxWidth={70} // Ensures the text wraps to the next line
         lineHeight={1.2} // Adjust line spacing
         material-toneMapped={false} // Ensures colors are not affected by tone mapping
         textAlign="center"
+        // skewY={2}
       >
         {title}
       </Text>
@@ -138,7 +140,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
         opacity: 1,
         scale: 1,
         skewY: 0,  // No skew in center
-        duration: 2,
+        duration: 1,
         
       }
     )
@@ -146,12 +148,12 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       opacity: 1,
       scale: 1,  // Increase size while moving up
       skewY: 0,    // Skew in opposite direction
-      duration: 2
+      duration: 1
     },
  {
   opacity: 0.9,
-    scale: 1.2,  // Increase size while moving up
-    skewY: -4,    // Skew in opposite direction
+    scale: 1.5,  // Increase size while moving up
+    skewY: -6,    // Skew in opposite direction
     duration: 1
   });
 
@@ -166,17 +168,17 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
   
   return (
     <>
-     <Background3D  />
+    
                
-          
-      <Box sx={{padding:'5px',textShadow: '2px 2pxrgb(115, 23, 63)'}} id={id}>
+          <BubbleScene/>
+      <Box sx={{overflow:'hidden', padding:'5px',textShadow: '2px 2pxrgb(115, 23, 63)', height:'165vh'}} id={id}>
      
       
       <Canvas
-     
-      camera={{ position: [0, 0, 5] }}
+    
+      camera={{ position: [0, 0, 12] }}
       shadows // Enable shadows in the canvas
-      style={{ height: "65vh",width:'50vh', top: "25px", width: "100vw", display: "flex"}}
+      style={{ height: "45vh",width:'100vw', top: "25px", display: "flex"}}
     >
       {/* Ambient light for general illumination */}
       <ambientLight intensity={0.3} />
@@ -193,7 +195,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       />
 
       {/* Title with shadows */}
-      <Title scrollY={scrollY} title={title} />
+      <Title ref={containerRef} scrollY={scrollY} title={title} />
 
       {/* Ground plane to catch shadows */}
       <mesh
@@ -213,9 +215,9 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
           flexDirection: "column",
           alignItems: "center",
           position: "relative",
-          height: "98vh",
+          height: "150vh",
           width: "100%",
-          top: "30px",
+          // top: "30px",
           background:'voilet'
         }}
       >
@@ -224,14 +226,14 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       
        {
       <Box
-      ref={videoRef}
+      // ref={videoRef}
       sx={{
       
         overflow: "hidden",
-        width: "80vw",
-        height: "85vh",
+        width: "100vw",
+        height: "150vh",
       
-        transformOrigin: "bottom center",// Inverted trapezoid
+        transformOrigin: "bottom right",// Inverted trapezoid
       }}
     >
      {/* <video

@@ -6,7 +6,7 @@ const Header = ({ pageId }) => {
   const menuItems = [
     { title: "Home", path: "" },
     { title: "Events", path: "events" },
-    { title: "Group Bookings", path: "groupBookings" },
+    { title: "Group Bookings", path: "packages" },
   ];
 
   return (

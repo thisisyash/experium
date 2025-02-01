@@ -6,7 +6,8 @@ import Header from "../components/Header";
 import gsap from "gsap";
 import { useParams } from "react-router-dom";
 import CardComponent from "../components/HomeCard";
-import Background3D from "../components/Background3d";
+// import FacilitiesCard from "../components/FacilitiesCard";
+// import Background3D from "../components/Background3d";
 
 function HomePage() {
   const [scrollIndex, setScrollIndex] = useState(0);
