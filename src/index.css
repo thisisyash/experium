@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "VistaMed";
+  src: local("VistaMed"),
+    url("./fonts/VistaSansReg.woff2") format("truetype");
+  font-weight: normal;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -11,3 +18,4 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+

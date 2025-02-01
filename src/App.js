@@ -9,6 +9,8 @@ import EventDetailPage from "./Pages/EventDetail"
 import MusicConcerts from "./Pages/MusicConcerts"
 import Background3D from "./components/Background3d"
 import ViewGarden from "./Pages/ViewGarden"
+import Attractions from "./Pages/Attractions"
+import GroupBooking from "./Pages/GroupBooking"
 
 // Main App Component
 function App() {
@@ -96,10 +98,10 @@ function App() {
     <Route path="/home/:id" element={<HomePage />} />
     <Route path="/garden/:id" element={<ViewGarden />} />
     <Route path="/events" element={<AllEvents />} />
-    <Route path="/groupBookings" element={<AllEvents />} />
+    <Route path="/groupBookings" element={<GroupBooking />} />
     <Route path="/events/music-concert" element={<MusicConcerts />} />
     <Route path="/events/event-details" element={<EventDetailPage />} />
-  </Routes>
+    <Route path="/attractions" element={<Attractions />} />  </Routes>
 </BrowserRouter>
     </>
     

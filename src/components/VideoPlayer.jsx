@@ -18,7 +18,8 @@ const VideoPage = ({ videoUrl,id }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/garden/${id}`);
+    // navigate(`/attractions`);
+    window.open("https://experiumbooking.brandorigin.in/attractions", '_blank')
   };
 
 
@@ -29,7 +30,6 @@ const VideoPage = ({ videoUrl,id }) => {
       setIsMuted(!isMuted);
     }
   };
-console.log(isPlaying)
   const handlePlayToggle = () => {
     const video = videoRef.current;
     if (video) {

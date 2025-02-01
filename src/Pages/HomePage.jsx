@@ -14,11 +14,10 @@ function HomePage() {
   const lastScrollY = useRef(0);
   const sectionRefs = useRef([]); // Array to hold references for each section
   const { id } = useParams(); // Get the 'id' from URL params
-  console.log(id, "iddd");
 
   const videoData = [
     { title: "Miracle Flower Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'MiracleFlowerGarden' },
-    { title: "Japanese Garden", videoUrl: "https://www.w3schools.com/html/movie.mp4", id: 'JapaneseGarden' },
+    { title: "Japanese Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'JapaneseGarden' },
     { title: "Rock Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'RockGarden' },
     // { title: "Cactus Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'CactusGarden' },
     // { title: "Palm Garden", videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4", id: 'PalmGardens' },

@@ -10,7 +10,7 @@ import {
 } from "@mui/material"
 import Grid from "@mui/material/Grid2"
 import { VolumeOff, VolumeUp, PlayArrow, Pause } from "@mui/icons-material"
-
+import Experium from '../assets/exp-thumb.png'
 const CardComponent = () => {
   const [expanded, setExpanded] = useState(null) // Track expanded state
   const [visibleCards, setVisibleCards] = useState({}) // Track visibility (via IntersectionObserver)
@@ -200,7 +200,7 @@ const CardComponent = () => {
   }
 
   return (
-    <Grid container spacing={2} justifyContent="center" sx={{ background: "#f5f2f5" }}>
+    <Grid container spacing={2} justifyContent="center" sx={{ background: "#fffcfe" }}>
       {cards.map((card, index) => {
         const vState = videoStates[card.id] || {}
         return (
@@ -211,7 +211,7 @@ const CardComponent = () => {
             md={4}
             lg={6}
             key={card.id}
-            sx={{ background: "#f5f2f5" }}
+            sx={{ background: "#f5effe" }}
           >
             <div ref={(el) => (cardRefs.current[card.id] = el)} id={card.tagId}>
               <Card
@@ -226,10 +226,10 @@ const CardComponent = () => {
                   boxShadow: "none",
                   borderRadius: 2,
                   width: "100%",
-                  height: "100vh",
+                  height: "80vh",
                   flexWrap: "nowrap",
                   marginTop: "30px",
-                  background: "#f5f2f5",
+                  background: "#f5effe00",
                 }}
               >
                 {/* ----------- VIDEO SECTION (Custom controls) ----------- */}
@@ -246,7 +246,7 @@ const CardComponent = () => {
                       ? "translate(-100%, 100%)"
                       : "translate(150%, -100%)",
                     opacity: visibleCards[card.id] ? 1 : 0,
-                    transition: "transform 1.5s ease-in-out, opacity 1.5s ease-in-out",
+                    transition: "transform 1s ease-in-out, opacity 1.5s ease-in-out",
              
                  
                     borderRadius: "8px",
@@ -254,10 +254,12 @@ const CardComponent = () => {
                   }}
                 >
                   <video
+                   poster={Experium}
                     ref={(videoEl) => (videoRefs.current[card.id] = videoEl)}
                     style={{
                       width: "100%",
                       height: "auto",
+                      borderRadius:'10px',
                       objectFit: "cover",
                     }}
                     muted={vState.isMuted}
@@ -369,6 +371,7 @@ const CardComponent = () => {
                   sx={{
                     flex: "1 1 50%",
                     minWidth: 0,
+                    background:'#f5effe00',
                     textAlign: {
                       xs: "center",
                       sm: index % 2 === 0 ? "right" : "left",
@@ -380,7 +383,7 @@ const CardComponent = () => {
                       ? "translate(100%, -100%)"
                       : "translate(-100%, 100%)",
                     opacity: visibleCards[card.id] ? 1 : 0,
-                    transition: "transform 1.5s ease-in-out, opacity 1s ease-in-out",
+                    transition: "transform 1s ease-in-out, opacity 1s ease-in-out",
                   }}
                 >
                   <Typography
@@ -390,7 +393,10 @@ const CardComponent = () => {
                       fontWeight: 700,
                       margin: 1,
                       color: "#C0029D",
-                      background: "#f5f2f5",
+                      background: "#f5effe00",
+                      fontFamily:"VistaMed",
+                      textAlign:'left',
+                      boxShadow:'10px 10px 10px #eaeaea'
                     }}
                   >
                     {card.title}
