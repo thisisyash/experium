@@ -70,21 +70,27 @@ const CardComponent = () => {
 
   // Initialize each card's video state (only if not already set)
   useEffect(() => {
-    const newVideoStates = { ...videoStates }
-    cards.forEach((card) => {
-      if (!newVideoStates[card.id]) {
-        newVideoStates[card.id] = {
-          isPlaying: false,
-          isMuted: true,
-          currentTime: 0,
-          duration: 0,
-          volume: 1,
+    setVideoStates((prevState) => {
+      const newVideoStates = { ...prevState };
+      let stateChanged = false;
+  
+      cards.forEach((card) => {
+        if (!newVideoStates[card.id]) {
+          newVideoStates[card.id] = {
+            isPlaying: false,
+            isMuted: true,
+            currentTime: 0,
+            duration: 0,
+            volume: 1,
+          };
+          stateChanged = true;
         }
-      }
-    })
-    setVideoStates(newVideoStates)
-    // eslint-disable-next-line
-  }, [cards])
+      });
+  
+      return stateChanged ? newVideoStates : prevState; // Update state only if needed
+    });
+  }, []); // Empty array ensures it runs only once on mount
+  
 
   // Utility to set partial state of a given card’s video
   const setVideoState = (cardId, newProps) => {

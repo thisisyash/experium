@@ -10,10 +10,8 @@ import CardComponent from "../components/HomeCard";
 // import Background3D from "../components/Background3d";
 
 function HomePage() {
-  const [scrollIndex, setScrollIndex] = useState(0);
   const headerRef = useRef(null);
   const lastScrollY = useRef(0);
-  const sectionRefs = useRef([]); // Array to hold references for each section
   const { id } = useParams(); // Get the 'id' from URL params
 
   const videoData = [
@@ -44,21 +42,20 @@ function HomePage() {
     }
   }, [id]); // This will run whenever the 'id' changes
 
-  const handleScroll = (event) => {
-    if (event.deltaY > 0) {
-      setScrollIndex((prev) => Math.min(prev + 1, videoData.length - 1));
-    } else {
-      setScrollIndex((prev) => Math.max(prev - 1, 0));
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("wheel", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("wheel", handleScroll);
-    };
-  }, []);
-
+  // const handleScroll = (event) => {
+  //   if (event.deltaY > 0) {
+  //     setScrollIndex((prev) => Math.min(prev + 1, videoData.length - 1));
+  //   } else {
+  //     setScrollIndex((prev) => Math.max(prev - 1, 0));
+  //   }
+  // };
+  // useEffect(() => {
+  //   window.addEventListener("wheel", handleScroll, { passive: true });
+  //   return () => {
+  //     window.removeEventListener("wheel", handleScroll);
+  //   };
+  // }, []);
+  console.log("homsePage")
   useEffect(() => {
     const handleHeaderAnimation = () => {
       const currentScrollY = window.scrollY;
@@ -75,7 +72,7 @@ function HomePage() {
       window.removeEventListener("scroll", handleHeaderAnimation);
     };
   }, []);
-console.log(sectionRefs,'sec')
+
   return (
     <Box >
 
@@ -85,7 +82,7 @@ console.log(sectionRefs,'sec')
       
       <div style={{ marginTop: "80px" }}>
         {videoData.map((data, index) => (
-          <>
+          
          
           <HomeSection
             key={index}
@@ -93,10 +90,9 @@ console.log(sectionRefs,'sec')
             title={data.title}
             videoUrl={data.videoUrl}
             index={index}
-            ref={(el) => sectionRefs.current[index] = el} // Assign ref dynamically
-            scrollIndex={scrollIndex}
+         
           />
-          </>
+          
         ))}
       </div>
       <CardComponent/>

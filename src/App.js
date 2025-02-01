@@ -12,7 +12,7 @@ import ViewGarden from "./Pages/ViewGarden"
 import Attractions from "./Pages/Attractions"
 import Packages from "./Pages/Packages"
 import GroupBooking from "./Pages/GroupBooking"
-
+import PaymentStatusHandler from "./Pages/PaymentStatusHandler" 
 // Main App Component
 function App() {
   const videoData = [
@@ -48,45 +48,45 @@ function App() {
     },
   ]
 
-  const [scrollIndex, setScrollIndex] = useState(0)
-  const [targetScrollIndex, setTargetScrollIndex] = useState(0)
+  // const [scrollIndex, setScrollIndex] = useState(0)
+  // const [targetScrollIndex, setTargetScrollIndex] = useState(0)
 
-  const handleScroll = (event) => {
-    const isScrollingDown = event.deltaY > 0
-    let newTarget = targetScrollIndex
+  // const handleScroll = (event) => {
+  //   const isScrollingDown = event.deltaY > 0
+  //   let newTarget = targetScrollIndex
 
-    if (isScrollingDown) {
-      newTarget = Math.min(targetScrollIndex + 15, 900) // Adjust increment for smoothness
-    } else {
-      newTarget = Math.max(targetScrollIndex - 15, 0) // Adjust decrement for smoothness
-    }
+  //   if (isScrollingDown) {
+  //     newTarget = Math.min(targetScrollIndex + 15, 900) // Adjust increment for smoothness
+  //   } else {
+  //     newTarget = Math.max(targetScrollIndex - 15, 0) // Adjust decrement for smoothness
+  //   }
 
-    setTargetScrollIndex(newTarget)
-  }
+  //   setTargetScrollIndex(newTarget)
+  // }
 
-  useEffect(() => {
-    const handleWheel = (event) => {
-      handleScroll(event)
-    }
+  // useEffect(() => {
+  //   const handleWheel = (event) => {
+  //     handleScroll(event)
+  //   }
 
-    window.addEventListener("wheel", handleWheel)
+  //   window.addEventListener("wheel", handleWheel)
 
-    return () => {
-      window.removeEventListener("wheel", handleWheel)
-    }
-  }, [targetScrollIndex])
+  //   return () => {
+  //     window.removeEventListener("wheel", handleWheel)
+  //   }
+  // }, [targetScrollIndex])
 
-  useEffect(() => {
-    // Smoothly interpolate scrollIndex toward targetScrollIndex
-    const animation = requestAnimationFrame(() => {
-      setScrollIndex((prev) => {
-        const diff = targetScrollIndex - prev
-        return prev + diff * 0.1 // Easing factor for smoothness
-      })
-    })
+  // useEffect(() => {
+  //   // Smoothly interpolate scrollIndex toward targetScrollIndex
+  //   const animation = requestAnimationFrame(() => {
+  //     setScrollIndex((prev) => {
+  //       const diff = targetScrollIndex - prev
+  //       return prev + diff * 0.1 // Easing factor for smoothness
+  //     })
+  //   })
 
-    return () => cancelAnimationFrame(animation)
-  }, [scrollIndex, targetScrollIndex])
+  //   return () => cancelAnimationFrame(animation)
+  // }, [scrollIndex, targetScrollIndex])
 
   return (
     <>
@@ -103,6 +103,7 @@ function App() {
     <Route path="/events/music-concert" element={<MusicConcerts />} />
     <Route path="/events/event-details" element={<EventDetailPage />} />
     
+    <Route path="/payment" element={<PaymentStatusHandler />} />
     <Route path="/packages" element={<Packages />} />
     <Route path="/attractions" element={<Attractions />} />  
     <Route path="/groupBooking" element={<GroupBooking />} />

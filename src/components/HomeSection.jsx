@@ -58,16 +58,24 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
   const containerRef = useRef(null);
   const light = useRef();
   useEffect(() => {
+    let timeoutId;
+    
     const handleScroll = () => {
-      setScrollY(window.scrollY /2);
+      clearTimeout(timeoutId); // Clear any previously set timeout
+      timeoutId = setTimeout(() => {
+        setScrollY(window.scrollY / 2);
+      }, 50); // Adjust debounce time as needed
     };
-
+  console.log("homsesction")
     window.addEventListener("scroll", handleScroll);
-
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeoutId);
     };
   }, []);
+  
+  // console.log("componentSEction_",id)
   if (light.current) {
     light.current.target.position.set(0, -5, 0); // Align the spotlight with the title
   }
@@ -164,7 +172,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       if (videoRef.current) observer.unobserve(videoRef.current);
     };
   }, [inViewport]);
-  console.log("id",id)
+  
   
   return (
     <>
