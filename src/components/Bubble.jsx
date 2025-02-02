@@ -16,7 +16,7 @@ export default function BubbleScene() {
           (Math.random() - 0.5) * 2, // Closer to camera (Z-axis)
         ],
         scale: Math.random() * 0.08 + 0.02, // Random sizes
-        floatSpeed: Math.random() * 0.05 + 0.02, // Slower floating
+        floatSpeed: Math.random() * 0.1 + 0.02, // Slower floating
         floatIntensity: Math.random() * 0.8 + 0.4, // Less CPU intensive
         moveSpeed: Math.random() * 0.005 + 0.001, // Random movement speed
       })),
@@ -43,7 +43,7 @@ export default function BubbleScene() {
         }}
       >
         {/* Background Color */}
-        <color attach="background" args={["#F5EFFF"]} />
+        <color attach="background" args={["#ffdaf6"]} />
 
         {/* Floating Bubbles with Random Motion */}
         {bubbles.map((bubble) => (
