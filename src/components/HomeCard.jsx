@@ -108,7 +108,7 @@ const CardComponent = () => {
     const options = {
       root: null, // Use the viewport
       rootMargin: "0px",
-      threshold: 0.5, // Trigger at 50% visibility
+      threshold: 0.7, // Trigger at 50% visibility
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -208,7 +208,7 @@ const CardComponent = () => {
   }
 
   return (
-    <Grid container spacing={2} justifyContent="center" sx={{ background: "#fffcfe" }}>
+    <Grid container spacing={2} justifyContent="center" sx={{ background: "#fffcfe", }}>
       {cards.map((card, index) => {
         const vState = videoStates[card.id] || {}
         return (

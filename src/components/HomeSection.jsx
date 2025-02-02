@@ -120,7 +120,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
       
       {
         root: null,
-        rootMargin: "0px",
+        rootMargin: "20px",
         
       },
     );
@@ -142,6 +142,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
         opacity: 0.5,
         scale: 0.3,
         skewY: 3,
+        skewX:1,
         y:100 // Skew while entering
       },
       { 
@@ -150,19 +151,22 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
         skewY: 0,  // No skew in center
         duration: 1,
         
+        
       }
     )
     .fromTo(containerRef.current, {
       opacity: 1,
       scale: 1,  // Increase size while moving up
       skewY: 0,    // Skew in opposite direction
-      duration: 1
+      duration: 1,
+      skewX:0,
     },
  {
   opacity: 0.9,
-    scale: 1.5,  // Increase size while moving up
-    skewY: -6,    // Skew in opposite direction
-    duration: 1
+    scale: 1.3,  // Increase size while moving up
+    skewY: -5,    // Skew in opposite direction
+    duration: 1,
+
   });
 
 
@@ -226,7 +230,7 @@ const HomeSection = ({ id,title, videoUrl, index }) => {
           height: "150vh",
           width: "100%",
           // top: "30px",
-          background:'voilet'
+          // background:'violet'  
         }}
       >
         {/* 3D Canvas Section */}

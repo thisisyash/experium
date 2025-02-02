@@ -108,7 +108,7 @@ Your browser does not support the video tag.
        
         endIcon={<ArrowForwardIcon />}
         onClick={handleClick}
-        sx={{borderRadius:'15px', color:"#C0029D", background:'white',marginTop:'5px'}}
+        sx={{borderRadius:'15px', color:"#C0029D", background:'white',marginTop:'5px',}}
       >
         Know More
       </Button>
