@@ -25,12 +25,12 @@ const PaymentStatusHandler = () => {
   return (
     <div>
       {/* Example payment status trigger */}
-      <button onClick={handlePaymentSuccess}>Trigger Success</button>
-      <button onClick={handlePaymentError}>Trigger Error</button>
+      {/* <button onClick={handlePaymentSuccess}>Trigger Success</button>
+      <button onClick={handlePaymentError}>Trigger Error</button> */}
 
       {/* Success and Error Snackbar components */}
-      <PaymentSuccess open={paymentSuccessOpen} onClose={handleCloseSuccess} />
-      <PaymentError open={paymentErrorOpen} onClose={handleCloseError} />
+      <PaymentSuccess open={true} onClose={handleCloseSuccess} />
+      {/* <PaymentError open={paymentErrorOpen} onClose={handleCloseError} /> */}
     </div>
   );
 };

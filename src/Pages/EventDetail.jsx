@@ -84,6 +84,7 @@ const EventDetailPage = () => {
             <Box component="span" sx={{ color: "#C0029D" }}>
               {pageData.title}
             </Box>
+            
           </Typography>
 
           <Typography

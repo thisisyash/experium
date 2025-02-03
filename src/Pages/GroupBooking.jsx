@@ -185,7 +185,7 @@ const GroupBooking = () => {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ backgroundColor: '#d945b4', color: 'white', width: '100%', py: 1.5, fontSize: '16px' }}
+                sx={{ backgroundColor: '#d945b4', color: 'white', width: '40%', py: 1.5, fontSize: '16px' ,left:'30%',borderRadius:'15px'}}
                 onClick={() => { navigate('/payment'); }}
               >
                 Book Now

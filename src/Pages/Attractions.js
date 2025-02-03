@@ -24,91 +24,35 @@ const Attractions = () => {
 
   return (
     <Box>
-
-<div  style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 10 }}>
+      <div style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 10 }}>
         <Header pageId={""} />
       </div>
       <div style={styles.app}>
-      {/* Banner Section */}
-      <section style={styles.banner}>
-        <img
-          src={Ecopark}
-          alt="Banner"
-          style={styles.bannerImage}
-        />
-      </section>
+        <section style={styles.banner}>
+          <img src={Ecopark} alt="Banner" style={styles.bannerImage} />
+        </section>
 
-      {/* Grid Layout Section */}
-      <section style={styles.gridSection}>
-        <div style={styles.gridLeft}>
-          <img
-            src={Experium}
-            alt="Grid Left"
-            style={styles.gridImage}
-          />
-        </div>
-        {/* <div style={styles.gridRight}>
-          <form onSubmit={handleSubmit} style={styles.form}>
-            <label style={styles.label}>
-              Name:
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                style={styles.input}
-              />
-            </label>
-            <label style={styles.label}>
-              Email:
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                style={styles.input}
-              />
-            </label>
-            <label style={styles.label}>
-              Mobile Number:
-              <input
-                type="text"
-                name="mobile"
-                value={formData.mobile}
-                onChange={handleInputChange}
-                required
-                style={styles.input}
-              />
-            </label>
-            <button type="submit" style={styles.submitBtn}>
-              Submit
-            </button>
-          </form>
-        </div> */}
+        <section className="grid-section">
+          <div className="grid-left">
+            <img src={Experium} alt="Grid Left" className="grid-image" />
+          </div>
+          
+          <div className="garden-container">
+            <section className="garden-introduction">
+              <h2>Welcome to the Beautiful Garden</h2>
+              <p>A garden is a place of serenity and peace. It is a space where plants, flowers, and trees grow to create a beautiful environment.</p>
+            </section>
 
-<div className="garden-container">
-      {/* Introduction Section */}
-      <section className="garden-introduction">
-        <h1>Welcome to the Beautiful Garden</h1>
-        <p>
-          A garden is a place of serenity and peace. It is a space where plants, flowers, and trees grow to create a
-          beautiful environment. Learn more about how you can create your own garden sanctuary.
-        </p>
-      </section>
-
-      {/* Planting Tips Section */}
-      <section className="planting-tips">
-        <h2>Planting Tips</h2>
-        <ul>
-          <li>Choose plants that are suitable for your climate.</li>
-          <li>Plant in well-draining soil to avoid root rot.</li>
-          <li>Water your plants regularly, but don't overwater.</li>
-          <li>Use organic fertilizers for healthy growth.</li>
-          <li>Ensure proper sunlight for each plant variety.</li>
-        </ul>
-      </section>
+            <section className="planting-tips">
+              <h2>Planting Tips</h2>
+              <ul>
+                <li>Choose plants that are suitable for your climate.</li>
+                <li>Plant in well-draining soil to avoid root rot.</li>
+                <li>Water your plants regularly, but don't overwater.</li>
+                <li>Use organic fertilizers for healthy growth.</li>
+                <li>Ensure proper sunlight for each plant variety.</li>
+              </ul>
+            </section>
 
       {/* Garden Features Section */}
       <section className="garden-features">
@@ -144,12 +88,57 @@ const Attractions = () => {
 
         </div>
       </section>
-    </div>
-      </section>
-    </div>
+          </div>
+        </section>
+      </div>
 
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .grid-section {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding: 20px;
+            }
+            .grid-left {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              margin-bottom: 20px;
+            }
+            .grid-image {
+              width: 90%;
+              max-width: 300px;
+            }
+            .garden-container {
+              padding: 10px;
+              text-align: center;
+            }
+            .banner {
+              height: 30vh;
+            }
+            .bannerImage {
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .garden-introduction{
+          
+          }
+          @media (min-width: 769px) {
+            .grid-section {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 20px;
+              padding: 40px;
+              align-items: center;
+              background-color: #f9f9f9;
+            }
+          }
+        `}
+      </style>
     </Box>
-  
   );
 };
 
@@ -167,65 +156,6 @@ const styles = {
     height: "100%",
     objectFit: "cover",
   },
-  gridSection: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "20px",
-    padding: "40px",
-    alignItems: "center",
-    backgroundColor: "#f9f9f9",
-  },
-  gridLeft: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  gridImage: {
-    width: "500px",
-    height: "auto",
-    borderRadius: "10px",
-  },
-  gridRight: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-    backgroundColor: "#ffffff",
-    padding: "20px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    width: "100%",
-    maxWidth: "400px",
-  },
-  label: {
-    fontSize: "16px",
-    fontWeight: "500",
-    color: "#333",
-  },
-  input: {
-    padding: "12px",
-    fontSize: "16px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    outlineColor: "#4CAF50",
-    transition: "border-color 0.3s ease",
-  },
-  submitBtn: {
-    padding: "12px",
-    fontSize: "18px",
-    backgroundColor: "#4CAF50",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-  },
-
-  
 };
 
 export default Attractions;

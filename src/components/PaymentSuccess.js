@@ -8,7 +8,7 @@ const PaymentSuccess = ({ open, onClose }) => {
 
   return (
     <>
-    <Grid container justifyContent="center" style={{ marginTop: '20px' }}>
+    <Grid container justifyContent="center" style={{ marginTop: '20px',position:'absolute',left:'30%',top:'20%'}}>
       <Card sx={{ maxWidth: 600, backgroundColor: '#e8f5e9', padding: '20px' }}>
         <CardContent>
           <Grid container justifyContent="center" style={{ marginBottom: '16px' }}>
@@ -21,7 +21,7 @@ const PaymentSuccess = ({ open, onClose }) => {
             Thank you for confirming your payment. An expert from our team will get in touch with you soon to assist with your needs.
           </Typography>
         </CardContent>
-      <div style={{justifySelf:'center', alignItems:'center'}}> <Button variant='contained' sx={{background:'#f5effe' ,color:'darkgreen'}}>Explore More</Button></div> 
+      <div style={{justifySelf:'center', alignItems:'center'}}> <Button href='/' variant='contained' sx={{background:'white' ,color:'#C0029D'}}>Go to Home</Button></div> 
       </Card>
     </Grid>
         </>
