@@ -70,27 +70,21 @@ const CardComponent = () => {
 
   // Initialize each card's video state (only if not already set)
   useEffect(() => {
-    setVideoStates((prevState) => {
-      const newVideoStates = { ...prevState };
-      let stateChanged = false;
-  
-      cards.forEach((card) => {
-        if (!newVideoStates[card.id]) {
-          newVideoStates[card.id] = {
-            isPlaying: false,
-            isMuted: true,
-            currentTime: 0,
-            duration: 0,
-            volume: 1,
-          };
-          stateChanged = true;
+    const newVideoStates = { ...videoStates }
+    cards.forEach((card) => {
+      if (!newVideoStates[card.id]) {
+        newVideoStates[card.id] = {
+          isPlaying: false,
+          isMuted: true,
+          currentTime: 0,
+          duration: 0,
+          volume: 1,
         }
-      });
-  
-      return stateChanged ? newVideoStates : prevState; // Update state only if needed
-    });
-  }, []); // Empty array ensures it runs only once on mount
-  
+      }
+    })
+    setVideoStates(newVideoStates)
+    // eslint-disable-next-line
+  }, [cards])
 
   // Utility to set partial state of a given card’s video
   const setVideoState = (cardId, newProps) => {
@@ -108,7 +102,7 @@ const CardComponent = () => {
     const options = {
       root: null, // Use the viewport
       rootMargin: "0px",
-      threshold: 0.7, // Trigger at 50% visibility
+      threshold: 0.5, // Trigger at 50% visibility
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -208,7 +202,7 @@ const CardComponent = () => {
   }
 
   return (
-    <Grid container spacing={2} justifyContent="center" sx={{ background: "#fffcfe", }}>
+    <Grid container spacing={2} justifyContent="center" sx={{ background: "#fffcfe" }}>
       {cards.map((card, index) => {
         const vState = videoStates[card.id] || {}
         return (
@@ -292,13 +286,13 @@ const CardComponent = () => {
                         bottom: "10%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
-                        color: "orange",
+                        color: "#C0029D",
                         backgroundColor: "black",
                         borderRadius: "10%",
                         opacity: 0.6,
                         "&:hover": {
                           backgroundColor: "white",
-                          color: "orange",
+                          color: "#C0029D",
                         },
                         zIndex: 10,
                       }}
@@ -322,14 +316,14 @@ const CardComponent = () => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "space-between",
-                        color: "orange",
+                        color: "#C0029D",
                       }}
                     >
                       {/* Play/Pause */}
                       <IconButton onClick={() => handlePlayToggle(card.id)}>
                         {vState.isPlaying ? (
-                        <Pause sx={{ color: "orange", fontSize: "xx-large" }} /> ) : (
-                            <PlayArrow sx={{ color: "orange", fontSize: "xx-large" }} />
+                        <Pause sx={{ color: "#C0029D", fontSize: "xx-large" }} /> ) : (
+                            <PlayArrow sx={{ color: "#C0029D", fontSize: "xx-large" }} />
                         
                         )}
                       </IconButton>
@@ -346,7 +340,7 @@ const CardComponent = () => {
                           setVideoState(card.id, { currentTime: newValue })
                         }}
                         sx={{
-                          color: "orange",
+                          color: "#C0029D",
                           mx: 2,
                         }}
                       />
@@ -360,7 +354,7 @@ const CardComponent = () => {
                         onChange={(e, newValue) => handleVolumeChange(card.id, newValue)}
                         sx={{
                           width: "200px",
-                          color: "orange",
+                          color: "#C0029D",
                         }}
                       />
 
@@ -394,28 +388,37 @@ const CardComponent = () => {
                     transition: "transform 1s ease-in-out, opacity 1s ease-in-out",
                   }}
                 >
-                  <Typography
-                    variant="h1"
-                    component="h2"
-                    sx={{
-                      fontWeight: 900,
-                      margin: 1,
-                      color: "#C0029D",
-                      background: "#f5effe00",
-                      fontFamily:"VistaMed",
-                      textAlign: index % 2 === 0 ? "right" : "left",
-                      boxShadow:'10px 10px 10px #eaeaea'
-                    }}
-                  >
-                    {card.title}
-                  </Typography>
+          <Typography
+  variant="h1"
+  component="h2"
+  sx={{
+    fontWeight: 900,
+    margin: 1,
+    color: "#C0029D",
+    background: "#f5effe00",
+    fontFamily: "VistaMed",
+    textAlign: index % 2 === 0 ? "right" : "left",
+    boxShadow: '10px 10px 10px #eaeaea',
+    fontSize: {
+      xs: '2rem', // For extra small screens
+      sm: '3rem', // For small screens
+      md: '4rem', // For medium screens
+      lg: '5rem', // For large screens
+      xl: '6rem'  // For extra large screens
+    },
+  }}
+>
+  {card.title}
+</Typography>
+
              
                 <Button
         variant="contained"
-       href="/attractions"
+       
         endIcon={<ArrowForwardIcon />}
        
         sx={{borderRadius:'15px', color:"#C0029D", background:'white',marginTop:'5px'}}
+        href="/attractions"
       >
         Know More
       </Button>

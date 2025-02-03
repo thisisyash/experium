@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import gsap from "gsap";
 import { useParams } from "react-router-dom";
 import CardComponent from "../components/HomeCard";
+import BubbleScene from "../components/Bubble";
 // import FacilitiesCard from "../components/FacilitiesCard";
 // import Background3D from "../components/Background3d";
 
@@ -79,7 +80,7 @@ function HomePage() {
       <div ref={headerRef} style={{ position: "fixed", top: 0, left: 0, width: "100%", zIndex: 10 }}>
         <Header pageId={""} />
       </div>
-      
+      <BubbleScene/>
       <div style={{ marginTop: "80px" }}>
         {videoData.map((data, index) => (
           

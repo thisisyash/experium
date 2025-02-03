@@ -13,6 +13,7 @@ import Attractions from "./Pages/Attractions"
 import Packages from "./Pages/Packages"
 import GroupBooking from "./Pages/GroupBooking"
 import PaymentStatusHandler from "./Pages/PaymentStatusHandler" 
+import VisitUs from "./Pages/VisitUs"
 // Main App Component
 function App() {
   const videoData = [
@@ -106,6 +107,7 @@ function App() {
     <Route path="/payment" element={<PaymentStatusHandler />} />
     <Route path="/packages" element={<Packages />} />
     <Route path="/attractions" element={<Attractions />} />  
+    <Route path="/visitUs" element={<VisitUs/>} />  
     <Route path="/groupBooking" element={<GroupBooking />} />
     </Routes>
     

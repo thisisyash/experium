@@ -12,10 +12,10 @@ import Event3 from "../assets/event3.png";
 import Event4 from "../assets/event4.png";
 import Album from "../assets/album.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
+import { useNavigate } from "react-router-dom";
 const MusicConcerts = () => {
   const isMobile = useMediaQuery("(max-width:600px)");
-
+const navigate=useNavigate()
   const categories = [
     { title: "Musical Concert's", image: Music },
     { title: "Events", image: Events },
@@ -67,13 +67,14 @@ const MusicConcerts = () => {
         }}
       >
         {events.map((event, index) => (
-          <Box key={index} >
+          <Box key={index}  >
             <CardMedia
               component="img"
               height="60%"
               image={event.image}
               alt={event.title}
-              sx={{ borderTopLeftRadius: "5px", borderTopRightRadius: "5px" }}
+              sx={{ borderTopLeftRadius: "5px", borderTopRightRadius: "5px",cursor:'pointer' }}
+              onClick={()=>navigate("/events/event-details")}
             />
             <CardContent sx={{ textAlign: "center" }}>
               <Typography sx={{ fontWeight: "400", fontFamily: "Righteous", color: "#C0029D" }}>

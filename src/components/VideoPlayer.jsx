@@ -18,8 +18,8 @@ const VideoPage = ({ videoUrl,id }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    // navigate(`/attractions`);
-    window.open("https://experiumbooking.brandorigin.in/attractions", '_blank')
+    navigate(`/attractions`);
+    // window.open("https://experiumbooking.brandorigin.in/attractions", '_blank')
   };
 
 
@@ -89,7 +89,7 @@ ref={videoRef}
 style={{
 width: "100vw",
 height: "90vh",
-objectFit: "contain",
+objectFit: "cover",
 }}
 
 muted
@@ -107,8 +107,9 @@ Your browser does not support the video tag.
         variant="contained"
        
         endIcon={<ArrowForwardIcon />}
-        onClick={handleClick}
-        sx={{borderRadius:'15px', color:"#C0029D", background:'white',marginTop:'5px',}}
+   
+        sx={{borderRadius:'15px', color:"#C0029D", background:'white',marginTop:'5px'}}
+        href="/attractions"
       >
         Know More
       </Button>
