@@ -11,9 +11,9 @@ export default function BubbleScene() {
       Array.from({ length: numBubbles }, (_, i) => ({
         id: i,
         position: [
-          (Math.random() - 0.5) * 6, // Spread on X-axis
+          (Math.random() - 0.5) * 3, // Spread on X-axis
           (Math.random() - 0.6) * 20, // Spread on Y-axis
-          (Math.random() - 0.5) * 2, // Closer to camera (Z-axis)
+          (Math.random() - 0.5) * 1, // Closer to camera (Z-axis)
         ],
         scale: Math.random() * 0.08 + 0.02, // Random sizes
         floatSpeed: Math.random() * 0.1 + 0.02, // Slower floating

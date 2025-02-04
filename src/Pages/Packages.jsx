@@ -198,7 +198,12 @@ const Packages = () => {
  }
 
  return (
- <Grid container spacing={1} justifyContent="center" sx={{ background: "#f5effe" }}>
+ <Grid container spacing={1} justifyContent="center" sx={{ background: "#f5effe", marginTop: {
+    xs: "130px", // Apply margin top for small screens (xs)
+    sm: "0px", 
+    md: "50px",
+    lg:'100px' // No margin top for screens above xs (sm and above)
+    }, }}>
  <Header />
  {cards.map((card, index) => {
  const vState = videoStates[card.id] || {}
@@ -225,16 +230,16 @@ const Packages = () => {
  boxShadow: "none",
  borderRadius: 2,
  width: "100%",
- height: "80vh",
+ height: "70vh",
  flexWrap: "nowrap",
  // marginTop: "30px",
  background: "#f5effe00",
  marginTop: {
- xs: "120px", // Apply margin top for small screens (xs)
- sm: "0px", 
- md: "50px",
- lg:'100px' // No margin top for screens above xs (sm and above)
- },
+    xs: "10px", // Apply margin top for small screens (xs)
+    sm: "0px", 
+    md: "50px",
+    lg:'50px' // No margin top for screens above xs (sm and above)
+    },
 
  }}
  >
@@ -292,7 +297,7 @@ const Packages = () => {
  md: '4rem', // For medium screens
  lg: '5rem', // For large screens
  xl: '6rem',
- xs:'50%', }, // For extra large screens
+ xs:'32%', }, // For extra large screens
  left: "50%",
  transform: "translate(-50%, -50%)",
  color: "#C0029D",

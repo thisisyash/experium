@@ -2,13 +2,14 @@ import React from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import Grid from "@mui/material/Grid2";
 import successGif from '../assets/success.gif'; // Path to your GIF
+import { Transform } from '@mui/icons-material';
 
 const PaymentSuccess = ({ open, onClose }) => {
   if (!open) return null; // Don't render the card if it's not open
 
   return (
     <>
-    <Grid container justifyContent="center" style={{ marginTop: '20px',position:'absolute',left:'30%',top:'20%'}}>
+    <Grid container justifyContent="center" style={{ marginTop: '20px',transform: "translateY(50%)",padding:'20px'}}>
       <Card sx={{ maxWidth: 600, backgroundColor: '#e8f5e9', padding: '20px' }}>
         <CardContent>
           <Grid container justifyContent="center" style={{ marginBottom: '16px' }}>

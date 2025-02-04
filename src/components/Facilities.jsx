@@ -18,13 +18,13 @@ const Facilities = () => {
   // Define frame sizes & positions dynamically
   const frames = isMobile
     ? [
-        { imageUrl: Facility1, size: "150px", position: [5, 5] },
-        { imageUrl: Facility2, size: "150px", position: [22, 65] },
-        { imageUrl: Facility1, size: "180px", position: [70, 25] },
+        { imageUrl: Facility1, size: "160px", position: [5, 5] },
+        { imageUrl: Facility2, size: "160px", position: [22, 75] },
+        { imageUrl: Facility1, size: "200px", position: [60, 30] },
         {
           imageUrl: "https://picsum.photos/200",
           size: "120px",
-          position: [33, 40],
+          position: [15, 40],
         },
         {
           imageUrl: "https://picsum.photos/200",
@@ -142,6 +142,7 @@ const Title = React.forwardRef((props, ref) => {
         bottom: "30%",
         left: "50%",
         transform: "translateX(-50%)",
+        width:'60vw',
         opacity: 0, // Starts hidden (GSAP will fade it in)
       }}
     >
@@ -156,7 +157,7 @@ const Title = React.forwardRef((props, ref) => {
             fontSize: { xs: "0.6rem", sm: "0.8rem", md: "1rem" },
             border: "1px solid black",
             borderRadius: "7px",
-            width: { xs: "30%", sm: "15%", md: "40%" },
+            width: { xs: "40%", sm: "30%", md: "20%" },
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  TextField,
-  Checkbox,
-} from "@mui/material";
+import { Box, Typography, Button, TextField, Checkbox, Divider } from "@mui/material";
 import Header from "../components/Header.jsx";
 import Album from "../assets/album.png";
 
@@ -26,7 +20,7 @@ const EventDetailPage = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#f9f9f9", minHeight: "100vh",marginTop:'15vh', fontFamily: "Poppins" }}>
+    <Box sx={{ backgroundColor: "#f9f9f9", minHeight: "100vh", marginTop: "10vh", }}>
       <Header pageId={"events"} />
 
       {/* Main Container - Responsive Layout */}
@@ -34,7 +28,7 @@ const EventDetailPage = () => {
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" }, // Stacks on mobile, row on desktop
-          width: "100%",
+          // width: "100%",
           maxWidth: "1200px",
           margin: "0 auto",
           padding: { xs: 3, sm: 4, md: 6 },
@@ -55,11 +49,12 @@ const EventDetailPage = () => {
             src={Album}
             alt="Event"
             style={{
-              width: "100%",
-              maxWidth: "500px",
-              height:'60vh',
+              width: "80%",
+              // minWidth: "400px",
+              height: "80%",
               borderRadius: "10px",
               boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              objectFit: "contain",
             }}
           />
         </Box>
@@ -68,23 +63,22 @@ const EventDetailPage = () => {
         <Box
           sx={{
             flex: 1,
-            paddingLeft: { md: "2rem" },
-            paddingTop: { xs: 0, md: "2rem" },
+           transform:'translateY(-20px)',
             display: "flex",
             flexDirection: "column",
-            alignItems: { xs: "center", md: "flex-start" },
+            alignItems: { xs: "center", md: "center" },
             textAlign: { xs: "center", md: "left" },
             mb: { xs: 4, md: 0 },
           }}
         >
-          <Typography fontSize="1.7rem" fontWeight="bold" sx={{ marginBottom: "20px" }}>
+          <Typography fontSize={{xs:'1.2rem',sm:'1.2rem', md:'1.5rem'}} fontWeight="bold" sx={{ marginBottom: "20px", fontFamily: "Righteous" }}>
             <Box component="span" sx={{ color: "black" }}>
               Booking for:
+            
             </Box>{" "}
             <Box component="span" sx={{ color: "#C0029D" }}>
               {pageData.title}
             </Box>
-            
           </Typography>
 
           <Typography
@@ -94,15 +88,16 @@ const EventDetailPage = () => {
               fontWeight: "400",
               color: "#888888",
               marginBottom: "20px",
-              maxWidth: "80%",
+              maxWidth: "90%",
+               fontFamily: "Righteous"
             }}
           >
             {pageData.description}
           </Typography>
 
           {/* Number of Persons */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "20px" }}>
-            <Typography fontWeight="400" fontSize="1.1rem">
+          <Box sx={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "20px" ,  fontFamily: "Righteous", flex:{sm:'1',xs:'1'}}}>
+            <Typography fontWeight="400" fontSize={{sm:'1rem', md:'1.2rem'}} fontFamily={"Righteous"}>
               Select No. Of persons:
             </Typography>
             <Box
@@ -124,6 +119,7 @@ const EventDetailPage = () => {
                   fontSize: "1rem",
                   color: "#C0029D",
                   padding: "5px",
+                   fontFamily: "Righteous"
                 }}
               >
                 {personCount < 10 ? "0" + personCount : personCount}
@@ -137,38 +133,37 @@ const EventDetailPage = () => {
           {/* Food Option */}
           <Box sx={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "20px" }}>
             <Checkbox checked={includeFood} onChange={(e) => setIncludeFood(e.target.checked)} color="primary" />
-            <Typography sx={{ fontWeight: "400", fontSize: "1rem", color: "#C0029D" }}>Include Food in your Ticket</Typography>
+            <Typography sx={{ fontWeight: "400", fontSize: "1rem", color: "#C0029D", fontFamily: "Righteous" }}>Include Food in your Ticket</Typography>
           </Box>
 
           {/* Confirm Booking Button */}
-          <Box sx={{ background: "#C0029D", width: { xs: "50%", sm: "50%" }, borderRadius: "15px", color: "white", textAlign: "center" }}>
+          <Button href="/payment" sx={{ background: "#C0029D", width: "80%", borderRadius: "15px", color: "white", textAlign: "center" }}>
             <Typography sx={{ color: "white", padding: "10px", fontWeight: "400" }}>Confirm Booking</Typography>
-          </Box>
+          </Button>
         </Box>
 
         {/* Third Section: Date and Timing */}
         <Box
-          sx={{
-            flex: 1,
-            padding: "2rem",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start", // Ensures alignment to the left
-            textAlign: "left",
-            justifyContent: "flex-start", 
-            alignSelf:'baseline'// Moves content to the top
-          }}
+                  sx={{
+                    flex: 1,
+                   transform:{md:'translateY(-140px)'},
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: { xs: "left", md: "left" },
+                    textAlign: { xs: "left", md: "left" },
+                    mb: { xs: 4, md: 0 },
+                  }}
         >
           {/* Date */}
-          <Box sx={{ display: "flex", marginBottom: "0.3rem", marginTop: "1.2rem", gap: "1rem" }}>
-            <Typography fontWeight="400">Date:</Typography>
-            <Typography sx={{ color: "#C0029D" }}>{pageData.date}</Typography>
+          <Box sx={{ display: "flex", marginBottom: "0.3rem",  gap: "5px", fontFamily: "Righteous" }}>
+            <Typography fontWeight="400"  fontFamily={"Righteous"} >Date:</Typography>
+            <Typography sx={{ color: "#C0029D" , fontFamily: "Righteous"}}>{pageData.date}</Typography>
           </Box>
 
           {/* Show Timings */}
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "1rem", gap: "1rem" }}>
-            <Typography fontWeight="400">Show Timings:</Typography>
-            <Typography sx={{ color: "#C0029D" }}>{pageData.timings}</Typography>
+          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "1rem", gap: "5px" }}>
+            <Typography fontWeight="400"fontFamily={"Righteous"}  >Show Timings:</Typography>
+            <Typography sx={{ color: "#C0029D", fontFamily: "Righteous" }}>{pageData.timings}</Typography>
           </Box>
         </Box>
       </Box>

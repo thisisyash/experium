@@ -80,10 +80,10 @@ const AllEvents = () => {
         sx={{
           ml: isMobile ? 2 : 6,
           mt: 3,
-          fontSize: "2rem",
+          fontSize: "1.5rem",
           fontWeight: "400",
-          fontFamily: "Palanquin Dark",
-          color: "#370EC9",
+          fontFamily: "Righteous",
+          color: "#C0029D",
         }}
       >
         Search by Category
@@ -92,10 +92,11 @@ const AllEvents = () => {
       <Box
         sx={{
           display: isMobile ? "grid" : "flex",
-          gap: isMobile ? "10px" : "50px",
+          gap:{xs:'2px',sm:'10px', md:'15px', lg:'20px'},
           gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "none",
-          mt: 2,
+          mr: 2,
           px: 2,
+          padding:{xs:'10px',sm:'10px', md:'15px', lg:'20px'},
           justifyContent: "left",
           cursor:'pointer',
         }}
@@ -105,8 +106,9 @@ const AllEvents = () => {
           <Box
             key={index}
             sx={{
-              width: isMobile ? "100%" : "18%",
-              height: "35vh",
+              width:{xs:'170px',sm:'170px', md:'250px', lg:'300px'},
+              height:{xs:'170px',sm:'170px', md:'250px', lg:'300px'},
+             
               backgroundImage: `url(${category.image})`,
               backgroundSize: "cover",
               position: "relative",
@@ -117,15 +119,15 @@ const AllEvents = () => {
                 position: "absolute",
                 bottom: 0,
                 right: 0,
-                width: "50%",
+                // width: "50%",
                 color: "black",
                 textAlign: "center",
                 fontFamily: "Righteous",
-                fontSize: "1.5rem",
+                fontSize: {xs:'1',sm:'1.2', md:'1.2', lg:'1.3'},
                 paddingBottom:'10px',
                 margin:'10px',
                 display:'flex',
-                marginRight:'25px'
+                // marginRight:'25px'
               }}
             >
               {category.title}
@@ -137,12 +139,12 @@ const AllEvents = () => {
       {/* All Events */}
       <Typography
         sx={{
-          ml: isMobile ? 2 : 5,
-          mt: 6,
-          fontSize: "2rem",
+          ml: isMobile ? 2 : 6,
+          mt: 3,
+          fontSize: "1.5rem",
           fontWeight: "400",
-          fontFamily: "Palanquin Dark",
-          color: "#370EC9",
+          fontFamily: "Righteous",
+          color: "#C0029D",
         }}
       >
         All
@@ -151,30 +153,36 @@ const AllEvents = () => {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: isMobile ? "repeat(1, 1fr)" : "repeat(4, 1fr)",
-          gap: 2,
+          gridTemplateColumns:{sm: "repeat(2, 1fr)" , xs: "repeat(1, 2fr)",md:"repeat(3, 1fr)" , lg:"repeat(5, 1fr)"},
+          // gap: 2,
           mt: 2,
           px: 2,
-          margin:'30px',
+          // margin:'30px',
          cursor:'pointer',
-         
+         justifyContent: "center",
+         alignItems: "center",
+         ml: isMobile ? 3 : 3,
+      
         }}
         onClick={navigatEvent}
       >
         {events.map((event, index) => (
-          <Box key={index} >
+          <Box key={index} sx={{   width:{xs:'320px',sm:'360px', md:'250px', lg:'300px'},
+                                   height:{xs:'550px',sm:'550px', md:'550px', lg:'550px'},  mb: isMobile ? 4 : 0,
+         }} >
             <CardMedia
               component="img"
-              height="65%"
+              height="450px"
               image={event.image}
               alt={event.title}
-              sx={{ borderTopLeftRadius: "5px", borderTopRightRadius: "5px" }}
+              sx={{ borderTopLeftRadius: "5px", borderTopRightRadius: "5px", objectFit: "contain", 
+              width:'100%'}}
             />
-            <CardContent sx={{ textAlign: "center" }}>
+            <CardContent sx={{ textAlign: "center" , width:'80%', textAlign:'center'}}>
               <Typography sx={{ fontWeight: "400", fontFamily: "Righteous", color: "#C0029D" }}>
                 {event.title}
               </Typography>
-              <Typography sx={{ textAlign: "left", color: "#797979", fontWeight: "400", fontSize: "0.7rem" }}>
+              <Typography sx={{ textAlign: "center", color: "#797979", fontWeight: "400", fontSize: "0.7rem" }}>
                 {event.description}
               </Typography>
             </CardContent>
