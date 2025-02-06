@@ -1,286 +1,295 @@
-import React from 'react';
-import { Box, Button, Typography, Card, CardMedia, CardContent, Fade, Slide } from '@mui/material';
-import Grid from "@mui/material/Grid2";
-import Header from '../components/Header';
-import Ecopark from '../assets/ecopark.png'
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+  Grid,
+  Paper,
+  Box,
+  Tabs,
+  Tab,
+  CardMedia
+} from "@mui/material";
+
+// TabPanel component to handle tab content
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box>{children}</Box>}
+    </div>
+  );
+}
+
 const VisitUs = () => {
+  const [value, setValue] = useState(0);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    companyName: "",
+    companyAddress: "",
+    pinCode: "",
+    preferredDate: "",
+    numberOfGuests: "",
+  });
+
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log("Form Data Submitted", formData);
+    // Implement form submission logic here
+  };
 
   return (
-    <Box>
-    <Header/>
-
-    <Box sx={{ 
-      padding: { xs: 3, sm: 4, md: 6 }, 
-      backgroundColor: '#f5effe',
-      fontFamily: 'Righteous',
-      textAlign: 'center',
-      marginTop: { xs: '64px', sm: '80px', md: '90px' }, // Ensure page starts after Header
-      minHeight: 'calc(100vh - 90px)' 
-    }}>
-
-              <div style={styles.app}>
-              {/* Banner Section */}
-              <section style={styles.banner}>
-                <img
-                  src={Ecopark}
-                  alt="Banner"
-                  style={styles.bannerImage}
-                />
-              </section>
-        </div>
-      {/* Title Section */}
-      <Fade in={true} timeout={1000}>
-        <Typography 
-          variant="h4" 
-          align="center" 
-          gutterBottom 
-          sx={{ 
-            color: '#C0029D', 
-            fontWeight: 'bold',
-            textTransform: 'uppercase',
-            letterSpacing: '2px'
-          }}>
-          Visit Experium Eco Park
-        </Typography>
-      </Fade>
-
-      {/* Description Section */}
-      <Fade in={true} timeout={1500}>
-        <Typography 
-          variant="body1" 
-          align="center" 
-          paragraph 
-          sx={{ 
-            color: '#6a1b9a', 
-            lineHeight: 1.8, 
-            maxWidth: '800px', 
-            margin: '0 auto',
-            fontSize: { xs: '14px', sm: '16px', md: '18px' }
-          }}>
-          Discover India's largest eco-friendly park, featuring over 25,000 plant species, a glow garden, and thrilling adventure activities.
-        </Typography>
-      </Fade>
-
-      {/* Gallery Section */}
-      {/* <Typography 
-        variant="h5" 
-        align="center" 
-        gutterBottom 
-        sx={{ 
-          color: '#C0029D', 
-          fontWeight: 'bold', 
-          marginTop: 4, 
-          textTransform: 'uppercase',
-          letterSpacing: '1px'
-        }}>
-        Explore Our Attractions
-      </Typography> */}
-
-      {/* <Grid container spacing={4} justifyContent="center">
-        {['Miracle Flower Gardens', 'Plam Garden', 'Sculpture Park'].map((title, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
-            <Slide direction="up" in={true} timeout={2000}>
-              <Card 
-                sx={{ 
-                  boxShadow: 4, 
-                  borderRadius: 3, 
-                  transition: 'transform 0.4s ease, box-shadow 0.3s ease',
-                  '&:hover': { transform: 'scale(1.08)', boxShadow: 8 },
-                  overflow: 'hidden'
-                }}>
-                <CardMedia
-                  component="img"
-                  alt={title}
-                  height="200"
-                  image={`https://loremflickr.com/1280/720`} // Replace with actual image URLs
-                  sx={{ 
-                    objectFit: "contain",
-                    filter: 'brightness(0.9)',
-                    transition: 'filter 0.3s ease-in-out',
-                    '&:hover': { filter: 'brightness(1.1)' }
-                  }}
-                />
-                <CardContent sx={{ padding: 3 }}>
-                  <Typography 
-                    variant="h6" 
-                    align="center" 
-                    sx={{ 
-                      color: '#6a1b9a', 
-                      fontWeight: 'bold',
-                      textTransform: 'uppercase',
-                      fontSize: '18px'
-                    }}>
-                    {title}
-                  </Typography>
-                  <Typography 
-                    variant="body2" 
-                    align="center" 
-                    sx={{ 
-                      color: '#555', 
-                      lineHeight: 1.6,
-                      fontSize: '14px'
-                    }}>
-                    {title === 'Miracle Flower Gardens' && 'Explore over 25,000 plant species from 85 countries.'}
-                    {title === 'Palm Garden' && 'Experience India\'s first four-direction zipline and more.'}
-                    {title === 'Sculpture Park' && 'Discover 20 towering stainless steel sculptures.'}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Slide>
-          </Grid>
-        ))}
-      </Grid> */}
-
-      {/* Contact Information */}
-   {/* Contact Information */}
-<Typography 
-  variant="h5" 
-  align="center" 
-  gutterBottom 
-  sx={{ 
-    color: '#6a1b9a', 
-    fontWeight: 'bold', 
-    marginTop: '40px',
-    textTransform: 'uppercase',
-    letterSpacing: '1px'
-  }}>
-  Contact Information
-</Typography>
-
-<Box 
-  sx={{
-    maxWidth: '800px',
-    margin: '0 auto',
-    textAlign: 'left',
-    backgroundColor: '#fff', 
-    padding: '20px',
-    borderRadius: '12px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-    lineHeight: 1.8
-  }}
->
-
-<Grid container justifyContent={"space-evenly"}>
-  
-    <Grid item xs={5} sm={4} md={3} >
-    <Typography 
-    variant="body1" 
-    sx={{ color: '#6a1b9a', fontWeight: 'bold', fontSize: '18px', marginBottom: '10px' }}
-  >
-    📍 Location:
-  </Typography>
-  <Typography variant="body2" sx={{ color: '#333', fontSize: '16px' }}>
-    Proddutur Village<br/> Near Pragati Resorts<br/> Chilukuru Balaji Temple Road<br/>  Hyderabad<br/>  Telangana <br/> 501503
-  </Typography>
-    </Grid>
-    <Grid item xs={5} sm={4} md={3} >
-    <Typography 
-    variant="body1" 
-    sx={{ color: '#6a1b9a', fontWeight: 'bold', fontSize: '18px', marginTop: '20px' }}
-  >
-    ⏰ Timings:
-  </Typography>
-  <Typography variant="body2" sx={{ color: '#333', fontSize: '16px' }}>
-    Open daily from 10:00 AM to 8:00 PM
-  </Typography>
-
-  <Typography 
-    variant="body1" 
-    sx={{ color: '#6a1b9a', fontWeight: 'bold', fontSize: '18px', marginTop: '20px' }}
-  >
-    📞 Contact:
-  </Typography>
-  <Typography variant="body2" sx={{ color: '#333', fontSize: '16px' }}>
-    Phone: 999999999
-  </Typography>
-    </Grid>
-
-</Grid>
+    <>
+    <Grid container spacing={4} justifyContent="center" style={{ padding: 20 }}>
+      {/* Left Section: Contact Information */}
     
 
+      {/* Right Section: Inquiry Form */}
+      <Grid item xs={12} md={5}>
+        <Paper style={{ padding: 20 }}>
+        <Card>
+          {/* Banner Image */}
+          <CardMedia
+            component="img"
+            alt="Banner Image"
+            height="200"
+            image="https://via.placeholder.com/800x300"
+            title="Banner"
+          />
+          </Card>
 
+          <Typography variant="h5" gutterBottom>
+            Get in Touch
+          </Typography>
 
-</Box>
+          <Tabs value={value} onChange={handleTabChange} aria-label="contact tabs">
+            <Tab label="General Enquiry" />
+            <Tab label="Group Bookings Enquiry" />
+          </Tabs>
 
+          <TabPanel value={value} index={1}>
+            <Typography variant="h6">Group Bookings Enquiry</Typography>
+            <TextField
+              label="Company Name"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Company Address"
+              name="companyAddress"
+              value={formData.companyAddress}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="PIN Code"
+              name="pinCode"
+              value={formData.pinCode}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Full Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Mobile Number"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Preferred Date of Visit"
+              name="preferredDate"
+              type="date"
+              value={formData.preferredDate}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+            <TextField
+              label="Number of Guests"
+              name="numberOfGuests"
+              value={formData.numberOfGuests}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <Typography variant="body2" color="textSecondary">
+              To book tickets for less than 20 guests, please visit bookings.wonderla.com.
+              Hurry! Book 3 days in advance to get 10% off.
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleSubmit}
+              style={{ marginTop: 20 }}
+            >
+              Submit
+            </Button>
+          </TabPanel>
 
+          <TabPanel value={value} index={0}>
+            <Typography variant="h6">General Enquiry</Typography>
+            <TextField
+              label="Full Name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Mobile Number"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+            />
+            <TextField
+              label="Message"
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              multiline
+              rows={4}
+            />
+            <div>
+              <label>
+                <input
+                  type="checkbox"
+                  name="agree"
+                  value={formData.agree}
+                  onChange={handleInputChange}
+                />
+                I agree to receive messages from Wonderla and its representatives
+                through WhatsApp, RCS, Email, and other communication channels.
+              </label>
+            </div>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={handleSubmit}
+              style={{ marginTop: 20 }}
+            >
+              Submit
+            </Button>
+          </TabPanel>
+        </Paper>
+      </Grid>
+      
+    </Grid>
   
-    </Box>
-    </Box>
+    <Grid item xs={12} md={5}>
+        <Paper style={{ padding: 20 }}>
+          <Typography variant="h4" gutterBottom>
+            Contact Us
+          </Typography>
+          <Typography variant="body1" paragraph>
+            For any inquiries, feel free to get in touch with us using the
+            form or the contact details below.
+          </Typography>
+
+          <Typography variant="h6" gutterBottom>
+            Address:
+          </Typography>
+          <Typography variant="body1">
+            Wonderla Holidays Ltd, 28th Mile, Mysore Road, Bangalore, Karnataka.
+          </Typography>
+
+          <Typography variant="h6" gutterBottom style={{ marginTop: 20 }}>
+            Phone:
+          </Typography>
+          <Typography variant="body1">+91 123 456 7890</Typography>
+
+          <Typography variant="h6" gutterBottom style={{ marginTop: 20 }}>
+            Email:
+          </Typography>
+          <Typography variant="body1">info@wonderla.com</Typography>
+
+          {/* Google Map */}
+          <div style={{ marginTop: 20 }}>
+            <iframe
+              width="100%"
+              height="300"
+              src="https://www.google.com/maps/embed/v1/place?q=Wonderla%20Park&key=YOUR_GOOGLE_MAPS_API_KEY"
+              style={{ border: 0 }}
+              allowFullScreen
+            ></iframe>
+          </div>
+        </Paper>
+      </Grid>
+    </>
   );
 };
 
-const styles = {
-    app: {
-      fontFamily: "Arial, sans-serif",
-    },
-    banner: {
-      width: "100%",
-      height: "50vh",
-      position: "relative",
-    },
-    bannerImage: {
-      width: "100%",
-      height: "100%",
-      objectFit: "cover",
-    },
-    gridSection: {
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gap: "20px",
-      padding: "40px",
-      alignItems: "center",
-      backgroundColor: "#f9f9f9",
-    },
-    gridLeft: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    gridImage: {
-      width: "500px",
-      height: "auto",
-      borderRadius: "10px",
-    },
-    gridRight: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    form: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "20px",
-      backgroundColor: "#ffffff",
-      padding: "20px",
-      borderRadius: "10px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      width: "100%",
-      maxWidth: "400px",
-    },
-    label: {
-      fontSize: "16px",
-      fontWeight: "500",
-      color: "#333",
-    },
-    input: {
-      padding: "12px",
-      fontSize: "16px",
-      border: "1px solid #ccc",
-      borderRadius: "8px",
-      outlineColor: "#4CAF50",
-      transition: "border-color 0.3s ease",
-    },
-    submitBtn: {
-      padding: "12px",
-      fontSize: "18px",
-      backgroundColor: "#4CAF50",
-      color: "#fff",
-      border: "none",
-      borderRadius: "8px",
-      cursor: "pointer",
-      transition: "background-color 0.3s ease",
-    },
-  
-    
-  };
 export default VisitUs;

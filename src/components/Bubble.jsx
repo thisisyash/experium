@@ -3,7 +3,7 @@ import { Environment, Float, MeshDistortMaterial } from "@react-three/drei";
 import { useRef, useMemo } from "react";
 
 export default function BubbleScene() {
-  const numBubbles = 200; // Optimized for performance
+  const numBubbles = 40; // Optimized for performance
 
   // Store bubbles in useMemo to prevent re-renders
   const bubbles = useMemo(
