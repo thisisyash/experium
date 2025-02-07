@@ -1,21 +1,26 @@
 import React, { useState } from "react";
 import {
-  Card,
-  CardContent,
   Typography,
   TextField,
   Button,
-  Grid,
   Paper,
   Box,
   Tabs,
   Tab,
-  CardMedia
+  Grid,
+  Fade
 } from "@mui/material";
+import Header from "../components/Header";
+import Banner from "../assets/palm2.png";
+import Logo from "../assets/experium-logo.png"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import dayjs from "dayjs";
 
-// TabPanel component to handle tab content
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+
   return (
     <div
       role="tabpanel"
@@ -24,7 +29,14 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box>{children}</Box>}
+      {/* Apply Fade effect only when the TabPanel is visible */}
+      {value === index && (
+        <Fade in={value === index} timeout={500}>
+          <Box sx={{ paddingTop: 2 }}>
+            {children}
+          </Box>
+        </Fade>
+      )}
     </div>
   );
 }
@@ -57,237 +69,136 @@ const VisitUs = () => {
 
   const handleSubmit = () => {
     console.log("Form Data Submitted", formData);
-    // Implement form submission logic here
   };
 
   return (
     <>
-    <Grid container spacing={4} justifyContent="center" style={{ padding: 20 }}>
-      {/* Left Section: Contact Information */}
-    
-
-      {/* Right Section: Inquiry Form */}
-      <Grid item xs={12} md={5}>
-        <Paper style={{ padding: 20 }}>
-        <Card>
-          {/* Banner Image */}
-          <CardMedia
-            component="img"
-            alt="Banner Image"
-            height="200"
-            image="https://via.placeholder.com/800x300"
-            title="Banner"
-          />
-          </Card>
-
-          <Typography variant="h5" gutterBottom>
+      <Box sx={{ position: 'relative', zIndex: 10 }}>
+        <Header pageId={""} />
+      </Box>
+      
+      {/* Banner Image */}
+      <Box sx={{ width: '100%', height: { xs: '30vh', md: '40vh' }, overflow: 'hidden', marginTop: '15vh' }}>
+        <img src={Banner} alt="Banner" style={{ width: '98%', height: '100%', objectFit: 'cover',margin:'10px' }} />
+      </Box>
+      
+      {/* Form Section */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '5vh 0', color: 'black', background: '#f5effe' }}>
+        <Paper elevation={3} sx={{ width: { xs: '80%', sm: '70%', md: '50%' }, padding: 4, textAlign: 'center', borderRadius: '12px' }}>
+          <Typography fontSize={{xs:'1.2rem',sm:'1.2rem', md:'1.5rem'}} fontWeight="bold" sx={{ marginBottom: "20px", fontFamily: "Righteous",color: "#C0029D" }}>
             Get in Touch
           </Typography>
-
-          <Tabs value={value} onChange={handleTabChange} aria-label="contact tabs">
+          <Typography fontSize={{xs:'0.7rem',sm:'0.7rem', md:'1rem'}} fontWeight="400" sx={{ marginBottom: "20px", fontFamily: "Righteous",color: "#C0029D" }}>
+            Fill out the form below and our team will get in touch with you in the next 24 hours
+          </Typography>
+          <Tabs 
+            value={value} 
+            onChange={handleTabChange} 
+            aria-label="contact tabs" 
+            centered 
+            variant="fullWidth"
+            sx={{
+              '& .MuiTabs-indicator': { backgroundColor: 'transparent' },
+              '& .MuiTab-root': { 
+                color: '#c0029d', 
+                backgroundColor: 'white',
+                borderRadius: '15px',
+                // margin: '0 5px',
+                fontFamily: "Righteous",
+                transitioTimingFucntion : 'cubic-bezier(0.64, 0.57, 0.67, 1.53)',
+                transitionDuration:'2.9s' ,
+                // border: '2px solid #c0029d',
+                minWidth: 'auto',
+                transition: 'background-color 0.3s ease, color 0.3s ease', // Added transition for smooth effect
+              },
+              '& .Mui-selected': { 
+                backgroundColor: '#c0029d !important', 
+                color: 'white !important', 
+                borderRadius: '20px' 
+              }
+            }}
+          >
             <Tab label="General Enquiry" />
             <Tab label="Group Bookings Enquiry" />
           </Tabs>
+          
+          <TabPanel value={value} index={0}>
+            {['name', 'email', 'phone', 'message'].map((field, index) => (
+              <TextField
+                key={index}
+                label={field.replace(/([A-Z])/g, ' $1').trim()}
+                name={field}
+                value={formData[field]}
+                onChange={handleInputChange}
+                fullWidth
+                variant="outlined"
+                margin="normal"
+                multiline={field === 'message'}
+                rows={field === 'message' ? 4 : 1}
+                sx={{  textTransform:'capitalize', width: { xs: '80%', sm: '60%', md: '50%' }, display: 'block', margin: '20px auto', transition: 'all 0.3s ease' }} // Added transition here too
+              />
+            ))}
+            <Button variant="contained" sx={{ mt: 2, backgroundColor: '#c0029d', color: 'white', transition: 'all 0.3s ease' }} onClick={handleSubmit}>
+              Submit
+            </Button>
+          </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <Typography variant="h6">Group Bookings Enquiry</Typography>
-            <TextField
-              label="Company Name"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Company Address"
-              name="companyAddress"
-              value={formData.companyAddress}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="PIN Code"
-              name="pinCode"
-              value={formData.pinCode}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Full Name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Mobile Number"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Preferred Date of Visit"
-              name="preferredDate"
-              type="date"
-              value={formData.preferredDate}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <TextField
-              label="Number of Guests"
-              name="numberOfGuests"
-              value={formData.numberOfGuests}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <Typography variant="body2" color="textSecondary">
-              To book tickets for less than 20 guests, please visit bookings.wonderla.com.
-              Hurry! Book 3 days in advance to get 10% off.
-            </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={handleSubmit}
-              style={{ marginTop: 20 }}
-            >
-              Submit
-            </Button>
-          </TabPanel>
-
-          <TabPanel value={value} index={0}>
-            <Typography variant="h6">General Enquiry</Typography>
-            <TextField
-              label="Full Name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Mobile Number"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-            />
-            <TextField
-              label="Message"
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              multiline
-              rows={4}
-            />
-            <div>
-              <label>
-                <input
-                  type="checkbox"
-                  name="agree"
-                  value={formData.agree}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              {["companyName", "companyAddress", "pinCode", "email", "name", "phone", "numberOfGuests"].map((field, index) => (
+                <TextField
+                  key={index}
+                  label={field.replace(/([A-Z])/g, " $1").trim()}
+                  name={field}
+                  value={formData[field]}
                   onChange={handleInputChange}
+                  fullWidth
+                  variant="outlined"
+                  margin="normal"
+                  sx={{ width: { xs: "80%", sm: "60%", md: "50%" }, display: "block", margin: "20px auto", transition: 'all 0.3s ease' , textTransform:'capitalize'}} // Added transition here too
                 />
-                I agree to receive messages from Wonderla and its representatives
-                through WhatsApp, RCS, Email, and other communication channels.
-              </label>
-            </div>
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              onClick={handleSubmit}
-              style={{ marginTop: 20 }}
-            >
+              ))}
+
+              {/* Preferred Date Picker */}
+              <DatePicker
+                label="Preferred Date"
+                value={formData.preferredDate ? dayjs(formData.preferredDate) : null}
+                onChange={(newValue) =>
+                  setFormData({ ...formData, preferredDate: newValue ? newValue.format("YYYY-MM-DD") : "" })
+                }
+                disablePast
+                slotProps={{ textField: { fullWidth: true, variant: "outlined", margin: "normal" } }}
+                sx={{ width: { xs: "80%", sm: "60%", md: "50%" }, display: "block", margin: "20px auto", transition: 'all 0.3s ease' }} // Added transition here too
+              />
+            </LocalizationProvider>
+
+            <Button variant="contained" sx={{ mt: 2, backgroundColor: "#c0029d", color: "white", transition: 'all 0.3s ease' }} onClick={handleSubmit}>
               Submit
             </Button>
           </TabPanel>
         </Paper>
-      </Grid>
-      
-    </Grid>
-  
-    <Grid item xs={12} md={5}>
-        <Paper style={{ padding: 20 }}>
-          <Typography variant="h4" gutterBottom>
-            Contact Us
-          </Typography>
-          <Typography variant="body1" paragraph>
-            For any inquiries, feel free to get in touch with us using the
-            form or the contact details below.
-          </Typography>
-
-          <Typography variant="h6" gutterBottom>
-            Address:
-          </Typography>
-          <Typography variant="body1">
-            Wonderla Holidays Ltd, 28th Mile, Mysore Road, Bangalore, Karnataka.
-          </Typography>
-
-          <Typography variant="h6" gutterBottom style={{ marginTop: 20 }}>
-            Phone:
-          </Typography>
-          <Typography variant="body1">+91 123 456 7890</Typography>
-
-          <Typography variant="h6" gutterBottom style={{ marginTop: 20 }}>
-            Email:
-          </Typography>
-          <Typography variant="body1">info@wonderla.com</Typography>
-
-          {/* Google Map */}
-          <div style={{ marginTop: 20 }}>
-            <iframe
-              width="100%"
-              height="300"
-              src="https://www.google.com/maps/embed/v1/place?q=Wonderla%20Park&key=YOUR_GOOGLE_MAPS_API_KEY"
-              style={{ border: 0 }}
+      </Box>
+      <Box sx={{ backgroundColor: '#f5effe', textAlign: 'center', padding: '5vh 0', color: "#C0029D" }}>
+        <Grid container spacing={4} justifyContent="center" alignItems="center">
+          <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <img src={Logo} style={{ height: "14vh", width: "auto", maxWidth: '60%' }} alt="Experium Logo" />
+            <Typography variant="h6" sx={{fontFamily:'Righteous',  marginTop: '2vh', fontSize: { xs: '1rem', md: '1.5rem' } }}>Contact Us</Typography>
+            <Typography sx={{fontFamily:'Righteous',  fontSize: { xs: '0.9rem', md: '1.2rem' }, maxWidth: '80%' }}>Experium, Proddutur Village, Road, near Pragathi Resorts, Chilkoor, Hyderabad, Telangana 501503</Typography>
+            <Typography sx={{fontFamily:'Righteous',  mt: 2, fontSize: { xs: '0.9rem', md: '1.2rem' } }}>Phone: +91 123 456 7890</Typography>
+            <Typography sx={{fontFamily:'Righteous', fontSize: { xs: '0.9rem', md: '1.2rem' } }}>Email: info@experiumecopark.com</Typography>
+          </Grid>
+          <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+          <iframe
+              width="90%"
+              height="250"
+              style={{ border: 0, borderRadius: '10px' }}
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.1661836119484!2d78.1881907!3d17.3796426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbe900490f07a1%3A0x4f3bda39e5cde997!2sExperium%20Eco%20Park!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
               allowFullScreen
+              loading="lazy"
             ></iframe>
-          </div>
-        </Paper>
-      </Grid>
+          </Grid>
+        </Grid>
+      </Box>
     </>
   );
 };

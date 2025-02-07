@@ -3,26 +3,26 @@ import { Card, CardContent, Typography, TextField, Button, Paper, Checkbox, Form
 import Grid from "@mui/material/Grid";
 // Left Card: Booking Details
 const LeftCardContent = () => (
-  <CardContent>
-    <Typography variant="h5" gutterBottom>
+  <CardContent sx={{fontFamily:'Righteous'}}>
+    <Typography variant="h5" sx={{fontFamily:'Righteous', fontWeight:'normal'}} gutterBottom>
       Booking Summary
     </Typography>
-    <Typography variant="h6" >
+    <Typography variant="h6" sx={{fontFamily:'Righteous'}}>
       <strong>Booking Type:</strong> Regular Ticket
     </Typography>
-    <Typography variant="h6" >
+    <Typography variant="h6" sx={{fontFamily:'Righteous'}}>
       <strong>Event Manager:</strong> Yes
     </Typography>
-    <Typography variant="h6" >
+    <Typography variant="h6" sx={{fontFamily:'Righteous'}}>
       <strong>Food:</strong> Yes
     </Typography>
-    <Typography variant="h6" >
+    <Typography variant="h6" sx={{fontFamily:'Righteous'}}>
       <strong>Tour Guide:</strong> No
     </Typography>
-    <Typography variant="h6" >
+    <Typography variant="h6" sx={{fontFamily:'Righteous'}}>
       <strong>Room:</strong> Yes
     </Typography>
-    <Typography variant="h6" >
+    <Typography variant="h6" sx={{fontFamily:'Righteous'}}>
       <strong>Total Price:</strong> $150
     </Typography>
   </CardContent>
@@ -65,7 +65,7 @@ const Billing = ({ onBack }) => {
         <Paper style={{ padding: 20 }}>
           <LeftCardContent />
         </Paper>
-        <Button onClick={onBack} variant="outlined" color="secondary" style={{ marginRight: 10 }}>
+        <Button onClick={onBack} variant="outlined" color="secondary" style={{ margin: 10 }}>
                 Back
               </Button>
       </Grid>
@@ -75,7 +75,7 @@ const Billing = ({ onBack }) => {
       <Grid item xs={12} md={6}>
         <Card>
           <CardContent>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom sx={{fontFamily:'Righteous'}}>
               Billing Details
             </Typography>
 
@@ -186,7 +186,7 @@ const Billing = ({ onBack }) => {
                 />
               }
               label={
-                <Typography variant="body2">
+                <Typography variant="body2" >
                   By proceeding further, you agree to all our <strong>T&Cs</strong> and{" "}
                   <strong>Privacy Policy</strong>.
                 </Typography>
@@ -194,8 +194,9 @@ const Billing = ({ onBack }) => {
             />
           
               <Button
+              href="/payment"
                 variant="contained"
-                color="primary"
+               sx={{background:'#800080'}}
                 disabled={!formData.agreeTnC} // Disable the button unless T&Cs are agreed to
               >
                 Proceed to Pay

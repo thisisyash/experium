@@ -1,0 +1,116 @@
+.react-calendar {
+    max-width: none !important;  /* Remove max-width */
+    width: auto !important;      /* Set width to auto */
+    border-radius: 15px;
+    border: none !important;
+  
+  }
+  
+  /* Optional: Make sure the month navigation arrows still work and are visible */
+  .react-calendar__navigation__button {
+    width: auto !important; /* Set width to auto for navigation buttons */
+  }
+  
+  /* Optional: Customize the tile sizes as per your design */
+  .react-calendar__tile {
+    padding: 8px !important; /* Adjust tile padding */
+  }
+  
+  .react-calendar__tile.unavailable {
+    background-color: grey !important;
+    color: black !important;
+    font-family: 'Righteous' !important;
+  
+  }
+  
+  /* Available: Green background with white font */
+  .react-calendar__tile.available {
+    background-color: rgb(90, 233, 90) !important;
+    color: white !important;
+    font-family: 'Righteous' !important;
+  }
+  
+  /* Sold Out: Red background with white font */
+  .react-calendar__tile.soldOut {
+    background-color: red !important;
+    color: white !important;
+    font-family: 'Righteous' !important;
+  }
+  
+  /* Fast Filling: Orange background with white font */
+  .react-calendar__tile.fastFilling {
+    background-color: orange !important;
+    color: white !important;
+    font-family: 'Righteous' !important;
+  }
+  
+  /* Selected date: Light purple background with black font */
+  .react-calendar__tile.react-calendar__tile--active {
+    background-color: rgb(254, 193, 249) !important; /* You can use any light purple shade */
+    color: black !important;
+    font-family: 'Righteous' !important;
+  }
+  
+  /* Optional: Style the labels for a more vibrant look */
+  .available-label {
+    color: green;
+    font-family: 'Righteous' !important;
+  }
+  
+  .fastFilling-label {
+    color: orange;
+    font-family: 'Righteous' !important;
+  }
+  
+  .soldOut-label {
+    color: red;
+    font-family: 'Righteous' !important;
+  }
+  
+  .unavailable-label {
+    color: grey;
+    font-family: 'Righteous' !important;
+  }
+  .react-calendar__navigation button:disabled {
+    display: none;
+    font-family: 'Righteous' !important;
+  }
+  .react-calendar__navigation button {
+    font-family: 'Righteous' !important;
+    color: #000;
+    font-size: medium;
+    
+  
+  }
+  
+  
+  .react-calendar__tile--now {
+    background: inherit;
+  }
+  .react-calendar__month-view__weekdays {
+  
+    font-family: 'Righteous' !important;
+    font-size: medium;
+  }
+  .react-calendar__month-view__days__day--neighboringMonth:disabled{
+    font-family: 'Righteous' !important;
+  }
+  .react-calendar__tile:disabled {
+    font-family: 'Righteous' !important;
+  }
+  /* Disable the month selector dropdown button */
+  .react-calendar__navigation__label {
+    pointer-events: none; /* Disable clicks on the month dropdown */
+    opacity: 0.5; /* Optional: make it appear visually disabled */
+  }
+  
+  /* Optional: Disable the year selector button */
+  .react-calendar__navigation__next-button,
+  .react-calendar__navigation__prev-button {
+    pointer-events: auto; /* Keep the next/previous buttons enabled */
+  }
+  
+  /* You can optionally change the appearance to make it look disabled */
+  .react-calendar__navigation__label:hover {
+    cursor: default !important; /* Disable hover effect */
+  }

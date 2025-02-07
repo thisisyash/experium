@@ -19,3 +19,40 @@ code {
     monospace;
 }
 
+
+/* Change the label color of all MUI TextField components */
+.MuiInputLabel-root {
+  color: #c0029d !important; /* Set label color to green */
+  font-family: 'Righteous' !important;
+}
+
+/* Change the color when the label is focused */
+.Mui-focused .MuiInputLabel-root {
+  color: #c0029d !important; /* Set focused label color to dark green */
+  font-family: 'Righteous' !important;
+}
+.css-12eb3rq-MuiStepLabel-label {
+  font-family: 'Righteous' !important;
+  
+}
+.css-rizt0-MuiTypography-root{
+  font-family: 'Righteous' !important;
+}
+.h5, .h6{
+  font-family: 'Righteous' !important;
+}
+.css-stp9o6-MuiTabs-flexContainer {
+  border: 10px solid #c0029d;
+  border-radius: 30px;
+ 
+  
+  /* margin: -5px; */
+}
+
+.css-imrjgg-MuiButtonBase-root-MuiCheckbox-root.Mui-checked, .css-imrjgg-MuiButtonBase-root-MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: #c0029d !important;
+}
+.css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: 'Righteous' !important;
+  
+}

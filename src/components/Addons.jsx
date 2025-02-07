@@ -1,27 +1,30 @@
 import React, { useState } from "react";
-import { Card, CardContent, Typography, Button, Grid, Paper, Checkbox, FormControlLabel, FormControl, FormLabel } from "@mui/material";
-
+import { Card, CardContent, Typography, Button, Grid, Paper, Checkbox, FormControlLabel, FormControl,CardMedia, FormLabel } from "@mui/material";
+import SideImage from "../assets/addons.png";
 // Left Card: Description of Add-ons
 const LeftCardContent = () => (
   <CardContent>
-    <Typography variant="h5" gutterBottom>
+    <Typography variant="h5" gutterBottom  sx={{ fontFamily:'Righteous'}}>
       Select from Our Add-ons
     </Typography>
-    <Typography variant="body1" paragraph>
+    <Typography variant="body1"  sx={{ fontFamily:'Righteous'}}>
       Choose the additional services to make your visit more enjoyable:
     </Typography>
-    <Typography variant="body2" paragraph>
-      <strong>Event Manager:</strong> A dedicated event manager to help with all your event planning needs.
-    </Typography>
-    <Typography variant="body2" paragraph>
-      <strong>Food:</strong> Enjoy a wide variety of meal options available within the park.
-    </Typography>
-    <Typography variant="body2" paragraph>
-      <strong>Tour Guide:</strong> Get a personalized tour of the park with an expert guide.
-    </Typography>
-    <Typography variant="body2" paragraph>
-      <strong>Room:</strong> Book a comfortable room for your stay at Experium.
-    </Typography>
+  
+  <CardMedia
+    component="img"
+    src={SideImage}  // Use this for the image source
+    alt="Side Illustration"
+    sx={{
+      maxWidth: "100%",
+      maxHeight: "200px",
+      borderRadius: "8px",
+      objectFit: "contain",
+      justifyContent: "center",
+      alignItems: "center",
+    }}
+  />
+
   </CardContent>
 );
 
@@ -42,24 +45,29 @@ const SelectAddOns = ({ onNext, onBack }) => {
   };
 
   return (
-    <Grid container spacing={4} justifyContent="center" style={{ padding: 20 }}>
+    <Grid container spacing={2} justifyContent="center" sx={{ padding:5 ,justifyContent:'center'}}>
       {/* Left Card - Add-on Information */}
-      <Grid item xs={12} md={5}>
-        <Paper style={{ padding: 20 }}>
+      <Grid item xs={12} md={6}>
+        <Card 
+                 sx={{
+                   padding: 6,
+                   backgroundColor: "#fff",
+                   borderRadius: "8px",
+                   boxShadow: 3,
+                   textAlign: "center",
+                   paddingY: "25px",
+                 }}
+               >
           <LeftCardContent />
-        </Paper>
+        </Card>
       </Grid>
 
       {/* Right Card - Add-ons Form with Checkboxes */}
-      <Grid item xs={12} md={5}>
+      <Grid item xs={12} md={6}>
         <Card>
           <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Select Add-ons
-            </Typography>
-
-            {/* Event Manager */}
-            <FormControl component="fieldset" style={{ marginBottom: 20 }}>
+        
+            <FormControl component="fieldset" style={{ marginBottom: 10 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -70,10 +78,13 @@ const SelectAddOns = ({ onNext, onBack }) => {
                 }
                 label="Event Manager"
               />
+              <Typography sx={{fontSize:'small'}} >
+     A dedicated event manager to help with all your event planning needs.
+    </Typography>
             </FormControl>
 
             {/* Food */}
-            <FormControl component="fieldset" style={{ marginBottom: 20 }}>
+            <FormControl component="fieldset" style={{ marginBottom: 10 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -84,10 +95,13 @@ const SelectAddOns = ({ onNext, onBack }) => {
                 }
                 label="Food"
               />
+             <Typography sx={{fontSize:'small'}} >
+       Enjoy a wide variety of meal options available within the park.
+    </Typography>
             </FormControl>
 
             {/* Tour Guide */}
-            <FormControl component="fieldset" style={{ marginBottom: 20 }}>
+            <FormControl component="fieldset" style={{ marginBottom: 10 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -98,10 +112,13 @@ const SelectAddOns = ({ onNext, onBack }) => {
                 }
                 label="Tour Guide"
               />
+              <Typography sx={{fontSize:'small'}} >
+       Get a personalized tour of the park with an expert guide.
+    </Typography>
             </FormControl>
 
             {/* Room */}
-            <FormControl component="fieldset" style={{ marginBottom: 20 }}>
+            <FormControl component="fieldset" style={{ marginBottom: 10 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -112,6 +129,9 @@ const SelectAddOns = ({ onNext, onBack }) => {
                 }
                 label="Room"
               />
+              <Typography sx={{fontSize:'small'}} >
+     Book a comfortable room for your stay at Experium.
+    </Typography>
             </FormControl>
 
             <div style={{ marginTop: 20 }}>
@@ -124,7 +144,7 @@ const SelectAddOns = ({ onNext, onBack }) => {
                   onNext();
                 }}
                 variant="contained"
-                color="primary"
+                sx={{backgroundColor:'#800080'}}
               >
                 Next
               </Button>

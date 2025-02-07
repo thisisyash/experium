@@ -1,34 +1,61 @@
 import React from "react";
-import { Card, CardContent, Typography, TextField, Button, Grid, Paper, CardActionArea } from "@mui/material";
+import { Card, CardContent, Typography, TextField, Button, Grid, Paper, CardActionArea , Box} from "@mui/material";
 import Slider from "react-slick"; // Import the slick carousel
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import coupon from "../assets/coupon1.png";
 // Left Card: Ticket Types and Carousel for Trending Coupons
 const LeftCardContent = () => (
-  <CardContent>
-    <Typography variant="h5" gutterBottom>
-      Grab your Tickets
-    </Typography>
-    <Typography variant="body1" paragraph>
-      Experium provides regular tickets, fast track tickets for queue skipping, and special offer tickets designed
-      exclusively for students, Birthday Celebrations, and Women. Make your choice.
-    </Typography>
-
-    <Typography variant="h6" gutterBottom>
-      Trending Coupons
+  <CardContent sx={{borderRadius:'15px', justifyContent:'center'}}>
+  
+    <Typography variant="h5" gutterBottom sx={{ fontFamily: "Righteous" }}>
+            Select Number of People
+          </Typography>
+          <Typography variant="body2" paragraph sx={{ fontFamily: "Righteous" }}>
+            Plan your visit to Experium Eco Park with your group by selecting the number of people attending. Choose
+            the right number of adults, children, and senior citizens for a personalized experience.
+          </Typography>
+    <Typography variant="h6" gutterBottom sx={{ fontFamily: "Righteous" }}>
+      Trending Offers
     </Typography>
 
     {/* Carousel for Trending Coupons */}
-    <Slider dots={true} infinite={true} speed={500} slidesToShow={1} slidesToScroll={1}>
+    <Slider dots={true} infinite={true} speed={100} slidesToShow={1} slidesToScroll={1}>
       <div>
-        <img src="https://via.placeholder.com/350x150" alt="Coupon 1" />
+      <img 
+          src={coupon} 
+          alt="Side Illustration"
+          style={{ 
+            maxWidth: "100%", 
+            minHeight: "100%",  
+            borderRadius: "8px", 
+            objectFit: "contain" 
+          }} 
+        />
       </div>
       <div>
-        <img src="https://via.placeholder.com/350x150" alt="Coupon 2" />
+      <img 
+          src={coupon} 
+          alt="Side Illustration"
+          style={{ 
+            maxWidth: "100%", 
+            minHeight: "100%",  
+            borderRadius: "8px", 
+            objectFit: "contain" 
+          }} 
+        />
       </div>
       <div>
-        <img src="https://via.placeholder.com/350x150" alt="Coupon 3" />
+      <img 
+          src={coupon} 
+          alt="Side Illustration"
+          style={{ 
+            maxWidth: "100%", 
+            minHeight: "100%",  
+            borderRadius: "8px", 
+            objectFit: "contain" 
+          }} 
+        />
       </div>
     </Slider>
   </CardContent>
@@ -36,32 +63,35 @@ const LeftCardContent = () => (
 
 // Right Card: Number of People Form
 const SelectNumberOfPeople = ({ onNext, onBack }) => (
-  <Grid container spacing={4} justifyContent="center" style={{ padding: 20 }}>
+  <Grid container spacing={2} justifyContent="center" style={{ padding: 20 }}>
     {/* Left Card - Ticket Info */}
-    <Grid item xs={12} md={5}>
-      <Paper style={{ padding: 20 }}>
+    <Grid item xs={12} md={6}>
+      <Card style={{ padding: 2, borderRadius:'15px' }}>
         <LeftCardContent />
-      </Paper>
+      </Card>
     </Grid>
 
     {/* Right Card - Number of People Form */}
-    <Grid item xs={12} md={5}>
-      <Card>
+    <Grid item xs={12} md={6}>
+      <Card sx={{borderRadius:'15px'}}>
         <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Select Number of People
-          </Typography>
+       
           <TextField label="Adults" type="number" fullWidth variant="outlined" margin="normal" />
           <TextField label="Children" type="number" fullWidth variant="outlined" margin="normal" />
-          <TextField label="Senior Citizens(Above 60)" type="number" fullWidth variant="outlined" margin="normal" />
-          <div style={{ marginTop: 20 }}>
+          <TextField label="Senior Citizens (Above 60)" type="number" fullWidth variant="outlined" margin="normal" />
+          <TextField label="Coupon Code" type="number" fullWidth variant="outlined" margin="normal" />
+          <div style={{ marginTop: 0, display:'flex', flexDirection:'row' }}>
+        
+           <Typography  sx={{fontFamily:'Righteous', marginY:'10px'}}>Total : 3000</Typography>
+           
+          </div>
             <Button onClick={onBack} variant="outlined" color="secondary" style={{ marginRight: 10 }}>
               Back
             </Button>
-            <Button onClick={onNext} variant="contained" color="primary">
+            <Button onClick={onNext} variant="contained" sx={{background:'#800080'}}>
               Next
             </Button>
-          </div>
+          
         </CardContent>
       </Card>
     </Grid>
